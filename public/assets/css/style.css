@@ -1,0 +1,17 @@
+.req::after {
+    content: " *";
+    font-size: 15px;
+    font-weight: bold;
+    color: red;
+}
+
+.select2-container--default .select2-selection--single {
+    height: 50px !important;
+}
+
+.form-control,
+.form-select,
+.select2-container--default .select2-selection--single {
+    border-color: #dee2e6 !important;
+    border-radius: 0 !important;
+}
