@@ -64,7 +64,7 @@
                                                 </tr>
                                                 <tr>
                                                     <th scope="row">Order Date:</th>
-                                                    <td>{{ $order ? strtotime($order->data->order_date) : 'Na' }}</td>
+                                                    <td>{{ $order ? date('d.M.Y', strtotime($order->data->order_date)) : 'Na' }}</td>
                                                 </tr>
                                                 <tr>
                                                     <th scope="row">Customer Name:</th>
@@ -80,7 +80,7 @@
                                                 </tr>
                                                 <tr>
                                                     <th scope="row">Expected Del. Date:</th>
-                                                    <td>{{ $order ? strtotime($order->data->expected_delivery_date) : 'Na' }}</td>
+                                                    <td>{{ $order ? date('d.M.Y', strtotime($order->data->expected_delivery_date)) : 'Na' }}</td>
                                                 </tr>
                                                 <tr>
                                                     <th scope="row">Order Note:</th>
