@@ -52,7 +52,7 @@
                                     <small class="text-danger">{{ $errors->first('password') }}</small>
                                     @enderror
                                 </div>
-                                <div class="col-12 mt-5">
+                                <div class="col-12 mt-3">
                                     {{ html()->submit("Login")->class("btn btn-submit btn-dark btn-lg w-100") }}
                                 </div>
                                 {{ html()->form()->close() }}

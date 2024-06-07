@@ -10,7 +10,7 @@
 
                  <!-- Menu: Sub menu ul -->
                  {{
-                    Menu::new()->addClass('sub-menu collapse')->setItemAttribute('id', 'menu-user')
+                    Menu::new()->addClass('sub-menu collapse')->setAttribute('id', 'menu-user')
                     ->link(route('user.register'), 'User Register')->addItemClass('ms-link')
                     ->link(route('user.create'), 'Create User')->addItemClass('ms-link')
                 }}
@@ -21,7 +21,7 @@
 
                  <!-- Menu: Sub menu ul -->
                  {{
-                    Menu::new()->addClass('sub-menu collapse')->setItemAttribute('id', 'menu-category')
+                    Menu::new()->addClass('sub-menu collapse')->setAttribute('id', 'menu-category')
                     ->link(route('category.register'), 'Category Register')->addItemClass('ms-link')
                     ->link(route('category.create'), 'Create Category')->addItemClass('ms-link')
                 }}
@@ -32,7 +32,7 @@
 
                  <!-- Menu: Sub menu ul -->
                  {{
-                    Menu::new()->addClass('sub-menu collapse')->setItemAttribute('id', 'menu-type')
+                    Menu::new()->addClass('sub-menu collapse')->setAttribute('id', 'menu-type')
                     ->link(route('type.register'), 'Type Register')->addItemClass('ms-link')
                     ->link(route('type.create'), 'Create Type')->addItemClass('ms-link')
                 }}
@@ -43,7 +43,7 @@
 
                  <!-- Menu: Sub menu ul -->
                  {{
-                    Menu::new()->addClass('sub-menu collapse')->setItemAttribute('id', 'menu-material')
+                    Menu::new()->addClass('sub-menu collapse')->setAttribute('id', 'menu-material')
                     ->link(route('material.register'), 'Material Register')->addItemClass('ms-link')
                     ->link(route('material.create'), 'Create Material')->addItemClass('ms-link')
                 }}
@@ -54,7 +54,7 @@
 
                  <!-- Menu: Sub menu ul -->
                  {{
-                    Menu::new()->addClass('sub-menu collapse')->setItemAttribute('id', 'menu-coating')
+                    Menu::new()->addClass('sub-menu collapse')->setAttribute('id', 'menu-coating')
                     ->link(route('coating.register'), 'Coating Register')->addItemClass('ms-link')
                     ->link(route('coating.create'), 'Create Coating')->addItemClass('ms-link')
                 }}
@@ -65,7 +65,7 @@
 
                  <!-- Menu: Sub menu ul -->
                  {{
-                    Menu::new()->addClass('sub-menu collapse')->setItemAttribute('id', 'menu-product')
+                    Menu::new()->addClass('sub-menu collapse')->setAttribute('id', 'menu-product')
                     ->link(route('dashboard'), 'Product Register')->addItemClass('ms-link')
                     ->link(route('dashboard'), 'Create Product')->addItemClass('ms-link')
                     ->link(route('dashboard'), 'Track Product')->addItemClass('ms-link')
