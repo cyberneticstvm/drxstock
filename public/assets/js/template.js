@@ -10,10 +10,10 @@ if (typeof jQuery === "undefined") {
 }
 
 // ALUI version update dynamic
-window.addEventListener("load", () => {
+/*window.addEventListener("load", () => {
     var first = document.getElementById("ALUIversion");
     first.outerHTML = '<span class="badge bg-primary rounded-pill ms-auto">v1.1.6</span>';
-});
+});*/
 
 // 
 $(function () {
@@ -193,8 +193,8 @@ $(function () {
             localStorage.setItem('theme', 'light');
         }
     }
-    toggleSwitch.addEventListener('change', switchTheme, false);
-    toggleHcSwitch.addEventListener('change', switchHc, false);
+    //toggleSwitch.addEventListener('change', switchTheme, false);
+    //toggleHcSwitch.addEventListener('change', switchHc, false);
 });
 
 // live support team js

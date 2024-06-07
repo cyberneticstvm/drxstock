@@ -89,19 +89,7 @@
             </div>
         </div>
 
-        <!-- sidebar tab menu -->
-        <div class="sidebar px-3 py-1">
-            <div class="d-flex flex-column h-100">
-                <h5 class="sidebar-title mb-4 mt-2">DRX<span> - Administrator</span></h5>
-
-                @include("nav")
-
-                <!-- Menu: menu collepce btn -->
-                <button type="button" class="btn btn-link text-primary sidebar-mini-btn">
-                    <span><i class="fa fa-arrow-left"></i></span>
-                </button>
-            </div>
-        </div>
+        @include("nav")
 
         <div class="main">
             <!-- main body area -->
@@ -141,8 +129,8 @@
     <!--<script src="{{ asset('/assets/bundles/apexcharts.bundle.js') }}"></script>-->
 
     <!-- Jquery Page Js -->
-    <!--<script src="{{ asset('/assets/js/template.js') }}"></script>
-    <script src="{{ asset('/assets/js/page/index.js') }}"></script>-->
+    <script src="{{ asset('/assets/js/template.js') }}"></script>
+    <!--<script src="{{ asset('/assets/js/page/index.js') }}"></script>-->
     <script src="{{ asset('/assets/js/script.js') }}"></script>
     @include("message")
 </body>
