@@ -5,6 +5,17 @@
          <!-- Menu: main ul -->
          <ul class="menu-list flex-grow-1">
              <li><a class="m-link {{ in_array(Route::currentRouteName(), ['dashboard']) ? 'active' : '' }}" href="{{ route('dashboard') }}"><i class="fa fa-dashboard"></i> <span>Dashboard</span></a></li>
+
+             <li class="collapsed">
+                 <a class="m-link {{ in_array(Route::currentRouteName(), ['order', 'order.fetch']) ? 'active' : '' }}" data-bs-toggle="collapse" data-bs-target="#menu-order" href="#"><i class="fa fa-check-square-o"></i> <span>Order</span> <span class="arrow fa fa-angle-right ms-auto text-end"></span></a>
+
+                 <!-- Menu: Sub menu ul -->
+                 {{
+                    Menu::new()->addClass('sub-menu collapse')->setAttribute('id', 'menu-order')
+                    ->link(route('order'), 'Fetch Order')->addItemClass('ms-link')
+                }}
+             </li>
+
              <li class="collapsed">
                  <a class="m-link {{ in_array(Route::currentRouteName(), ['user.register', 'user.create', 'user.edit']) ? 'active' : '' }}" data-bs-toggle="collapse" data-bs-target="#menu-user" href="#"><i class="fa fa-user"></i> <span>User</span> <span class="arrow fa fa-angle-right ms-auto text-end"></span></a>
 

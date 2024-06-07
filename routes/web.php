@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ApiController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CoatingController;
 use App\Http\Controllers\HelperController;
@@ -15,6 +16,12 @@ Route::prefix('/')->controller(HelperController::class)->group(function () {
 });
 
 Route::middleware(['web', 'auth'])->group(function () {
+
+    Route::prefix('/order')->controller(ApiController::class)->group(function () {
+        Route::get('/', 'order')->name('order');
+        Route::post('/', 'orderFetch')->name('order.fetch');
+    });
+
     Route::prefix('/')->controller(HelperController::class)->group(function () {
         Route::get('/dashboard', 'dashboard')->name('dashboard');
         Route::get('/logout', 'logout')->name('logout');
