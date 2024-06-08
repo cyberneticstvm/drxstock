@@ -72,6 +72,10 @@
                                 <label for="SquareInput" class="form-label">Add</label>
                                 {{ html()->text('add', old('add') ? old('add') : $inputs[6])->class("form-control form-control-lg")->placeholder("0") }}
                             </div>
+                            <div class="col-lg-2">
+                                <label for="SquareInput" class="form-label">Eye</label>
+                                {{ html()->select('eye', array('RE' => 'RE', 'LE' => 'LE', 'BOTH' => 'BOTH'),  old('eye') ? old('eye') : $inputs[7])->class("form-control form-control-lg select2")->placeholder("Select") }}
+                            </div>
                         </div>
                         <div class="row g-3">
                             <div class="col text-end">

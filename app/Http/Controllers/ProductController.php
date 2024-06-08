@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Imports\ProductImport;
+use App\Models\Category;
 use App\Models\Coating;
 use App\Models\Material;
 use App\Models\Product;
@@ -61,7 +62,7 @@ class ProductController extends Controller
         $coatings = Coating::pluck('name', 'id');
         $materials = Material::pluck('name', 'id');
         $products = [];
-        $inputs = array(1, 1, 1, '', '', '', '');
+        $inputs = array(1, 1, 1, '', '', '', '', '');
         return view('product.track', compact('types', 'coatings', 'materials', 'products', 'inputs'));
     }
 
@@ -72,6 +73,13 @@ class ProductController extends Controller
             'material_id' => 'required',
             'coating_id' => 'required',
         ]);
+        $type = Type::findOrFail($request->type_id);
+        if (in_array($type->category_id, [1, 2]) && $request->add == '') :
+            return back()->with("error", "Addition value required")->withInput($request->all());
+        endif;
+        if ($type->category_id == 2 && $request->eye == '') :
+            return back()->with("error", "Eye value required")->withInput($request->all());
+        endif;
         $axis = $request->axis;
         $spherical = $request->sph;
         $cylinder = $request->cyl;
@@ -81,7 +89,7 @@ class ProductController extends Controller
         $types = Type::pluck('name', 'id');
         $coatings = Coating::pluck('name', 'id');
         $materials = Material::pluck('name', 'id');
-        $inputs = array($request->type_id, $request->material_id, $request->coating_id, $request->sph, $request->cyl, $request->axis, $request->add);
+        $inputs = array($request->type_id, $request->material_id, $request->coating_id, $request->sph, $request->cyl, $request->axis, $request->add, $request->eye);
         try {
             switch ($axis):
                 case $axis <= 90:
@@ -101,6 +109,8 @@ class ProductController extends Controller
                 return $q->where('material_id', $request->material_id);
             })->when($request->axis != '', function ($q) use ($axis) {
                 return $q->whereIn('axis', $axis);
+            })->when($type->category_id == 1 && $request->axis != '', function ($q) use ($request) {
+                return $q->whereBetween('axis', [$request->axis - 40, $request->axis + 40]);
             })->when($request->add != '', function ($q) use ($add) {
                 return $q->whereIn('add', $add);
             })->when($request->sph != '' && $request->cyl != '', function ($q) use ($spherical, $cylinder) {
@@ -109,6 +119,8 @@ class ProductController extends Controller
                 return $q->whereIn('sph', $sph)->whereNull('cyl')->orwhere('cyl', 0);
             })->when($request->sph == '' && $request->cyl != '', function ($q) use ($cyl, $cylinder) {
                 return $q->whereIn('cyl', $cyl)->whereNull('sph')->orWhere('sph', 0);
+            })->when($request->eye != '', function ($q) use ($request) {
+                return $q->where('eye', $request->eye);
             })->orderByDesc('add')->get();
         } catch (Exception $e) {
             return back()->with("error", $e->getMessage())->withInput($request->all());
