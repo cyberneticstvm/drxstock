@@ -70,7 +70,7 @@
                             </div>
                             <div class="col-lg-2">
                                 <label for="SquareInput" class="form-label">Add</label>
-                                {{ html()->text('add', old('add') ? old('add') : $inputs[6])->class("form-control form-control-lg")->placeholder("0") }}
+                                {{ html()->text('add', old('add') ? old('add') : $inputs[6])->class("form-control form-control-lg")->placeholder("0.00") }}
                             </div>
                             <div class="col-lg-2">
                                 <label for="SquareInput" class="form-label">Eye</label>
