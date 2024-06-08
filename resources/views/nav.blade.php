@@ -77,8 +77,8 @@
                  <!-- Menu: Sub menu ul -->
                  {{
                     Menu::new()->addClass('sub-menu collapse')->setAttribute('id', 'menu-product')
-                    ->link(route('dashboard'), 'Product Register')->addItemClass('ms-link')
-                    ->link(route('dashboard'), 'Create Product')->addItemClass('ms-link')
+                    ->link(route('product.register'), 'Product Register')->addItemClass('ms-link')
+                    ->link(route('product.create'), 'Create Product')->addItemClass('ms-link')
                     ->link(route('dashboard'), 'Track Product')->addItemClass('ms-link')
                 }}
              </li>

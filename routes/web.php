@@ -5,6 +5,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CoatingController;
 use App\Http\Controllers\HelperController;
 use App\Http\Controllers\MaterialController;
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\TypeController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -25,6 +26,9 @@ Route::middleware(['web', 'auth'])->group(function () {
     Route::prefix('/')->controller(HelperController::class)->group(function () {
         Route::get('/dashboard', 'dashboard')->name('dashboard');
         Route::get('/logout', 'logout')->name('logout');
+
+        Route::get('/failed/import', 'failedImport')->name('import.failed');
+        Route::get('/failed/import/export', 'failedImportExport')->name('failed.import.export');
     });
 
     Route::prefix('/user')->controller(UserController::class)->group(function () {
@@ -70,5 +74,14 @@ Route::middleware(['web', 'auth'])->group(function () {
         Route::get('/edit/{id}', 'edit')->name('coating.edit');
         Route::post('/edit/{id}', 'update')->name('coating.update');
         Route::get('/delete/{id}', 'destroy')->name('coating.delete');
+    });
+
+    Route::prefix('/product')->controller(ProductController::class)->group(function () {
+        Route::get('/', 'index')->name('product.register');
+        Route::get('/create', 'create')->name('product.create');
+        Route::post('/create', 'store')->name('product.save');
+        Route::get('/edit/{id}', 'edit')->name('product.edit');
+        Route::post('/edit/{id}', 'update')->name('product.update');
+        Route::get('/delete/{id}', 'destroy')->name('product.delete');
     });
 });

@@ -35,15 +35,13 @@
                         <div class="row g-3">
                             <div class="col-lg-4 col-md-6">
                                 <label for="SquareInput" class="form-label req">Order ID</label>
-                                {{ html()->text('order_id', $order ? $order->data->id : old('order_id'))->class("form-control form-control-lg")->placeholder("Order ID") }}
-                                @error('order_id')
-                                <small class="text-danger">{{ $errors->first('order_id') }}</small>
-                                @enderror
-                            </div>
-                        </div>
-                        <div class="row g-3">
-                            <div class="col text-end">
-                                {{ html()->submit("Fetch Order")->class("btn btn-submit btn-dark btn-lg") }}
+                                <div class="input-group ">
+                                    {{ html()->text('order_id', $order ? $order->data->id : old('order_id'))->class("form-control form-control-lg")->placeholder("Order ID") }}
+                                    {{ html()->submit("Fetch Order")->class("btn btn-submit btn-dark btn-lg") }}
+                                    @error('order_id')
+                                    <small class="text-danger">{{ $errors->first('order_id') }}</small>
+                                    @enderror
+                                </div>
                             </div>
                         </div>
                         {{ html()->form()->close() }}

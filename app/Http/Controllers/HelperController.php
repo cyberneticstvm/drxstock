@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\FailedImportExport;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Session;
+use Maatwebsite\Excel\Facades\Excel;
 
 class HelperController extends Controller
 {
@@ -46,5 +49,17 @@ class HelperController extends Controller
         $request->session()->invalidate();
         $request->session()->regenerateToken();
         return redirect()->route('login')->with("success", "User logged out successfully");
+    }
+
+    public function failedImport()
+    {
+        return view('failed-import');
+    }
+
+    public function failedImportExport()
+    {
+        $data = Session::get('failed_import_data');
+        Session::forget('failed_import_data');
+        return Excel::download(new FailedImportExport($data), 'failed_import.xlsx');
     }
 }
