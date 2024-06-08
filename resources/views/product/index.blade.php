@@ -59,7 +59,7 @@
                                     <td>{{ $item->type->name }}</td>
                                     <td>{{ $item->coating->name }}</td>
                                     <td>{{ $item->material->name }}</td>
-                                    <td></td>
+                                    <td>{!! $item->power() !!}</td>
                                     <td>{{ $item->shelf }}</td>
                                     <td>{{ $item->box }}</td>
                                     <td>{!! $item->status() !!}</td>

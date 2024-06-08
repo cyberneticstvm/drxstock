@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Imports\ProductImport;
+use App\Models\Coating;
+use App\Models\Material;
 use App\Models\Product;
+use App\Models\Type;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
@@ -52,9 +55,65 @@ class ProductController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function track()
     {
-        //
+        $types = Type::pluck('name', 'id');
+        $coatings = Coating::pluck('name', 'id');
+        $materials = Material::pluck('name', 'id');
+        $products = [];
+        $inputs = array(1, 1, 1, '', '', '', '');
+        return view('product.track', compact('types', 'coatings', 'materials', 'products', 'inputs'));
+    }
+
+    function trackFetch(Request $request)
+    {
+        $request->validate([
+            'type_id' => 'required',
+            'material_id' => 'required',
+            'coating_id' => 'required',
+        ]);
+        $axis = $request->axis;
+        $spherical = $request->sph;
+        $cylinder = $request->cyl;
+        $sph = [$request->sph, number_format($request->sph, 2)];
+        $cyl = [$request->cyl, number_format(0 - $request->cyl, 2)];
+        $add = [number_format($request->add, 2), number_format($request->add + 0.25, 2), number_format($request->add - 0.25, 2)];
+        $types = Type::pluck('name', 'id');
+        $coatings = Coating::pluck('name', 'id');
+        $materials = Material::pluck('name', 'id');
+        $inputs = array($request->type_id, $request->material_id, $request->coating_id, $request->sph, $request->cyl, $request->axis, $request->add);
+        try {
+            switch ($axis):
+                case $axis <= 90:
+                    $axis = [$axis, $axis + 90];
+                    break;
+                case $axis > 90:
+                    $axis = [$axis, $axis - 90];
+                    break;
+                default:
+                    $axis = [$axis];
+            endswitch;
+            $products = Product::withTrashed()->when($request->coating_id != '', function ($q) use ($request) {
+                return $q->where('coating_id', $request->coating_id);
+            })->when($request->type_id != '', function ($q) use ($request) {
+                return $q->where('type_id', $request->type_id);
+            })->when($request->material_id != '', function ($q) use ($request) {
+                return $q->where('material_id', $request->material_id);
+            })->when($request->axis != '', function ($q) use ($axis) {
+                return $q->whereIn('axis', $axis);
+            })->when($request->add != '', function ($q) use ($add) {
+                return $q->whereIn('add', $add);
+            })->when($request->sph != '' && $request->cyl != '', function ($q) use ($spherical, $cylinder) {
+                return $q->whereRaw("IF($spherical, CAST($spherical AS DECIMAL(4,2)) = CAST(sph AS DECIMAL(4,2))+CAST(cyl AS DECIMAL(4,2)), 1)")->whereRaw("IF($cylinder, CAST($cylinder AS DECIMAL(4,2)) = CAST(0-cyl AS DECIMAL(4,2)), 1)")->orWhereRaw("sph=$spherical AND cyl=$cylinder");
+            })->when($request->sph != '' && $request->cyl == '', function ($q) use ($sph) {
+                return $q->whereIn('sph', $sph)->whereNull('cyl')->orwhere('cyl', 0);
+            })->when($request->sph == '' && $request->cyl != '', function ($q) use ($cyl, $cylinder) {
+                return $q->whereIn('cyl', $cyl)->whereNull('sph')->orWhere('sph', 0);
+            })->orderByDesc('add')->get();
+        } catch (Exception $e) {
+            return back()->with("error", $e->getMessage())->withInput($request->all());
+        }
+        return view('product.track', compact('types', 'coatings', 'materials', 'products', 'inputs'));
     }
 
     /**

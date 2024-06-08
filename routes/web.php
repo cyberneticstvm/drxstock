@@ -83,5 +83,8 @@ Route::middleware(['web', 'auth'])->group(function () {
         Route::get('/edit/{id}', 'edit')->name('product.edit');
         Route::post('/edit/{id}', 'update')->name('product.update');
         Route::get('/delete/{id}', 'destroy')->name('product.delete');
+
+        Route::get('/track', 'track')->name('product.track');
+        Route::post('/track', 'trackFetch')->name('product.track.fetch');
     });
 });

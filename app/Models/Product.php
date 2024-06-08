@@ -36,4 +36,9 @@ class Product extends Model
     {
         return $this->belongsTo(Category::class, 'category_id', 'id');
     }
+
+    public function power()
+    {
+        return "[" . $this->eye . ' | ' . $this->sph . ' | ' . $this->cyl . ' | ' . $this->axis . ' | ' . $this->add . "]";
+    }
 }
