@@ -87,6 +87,9 @@ class ProductController extends Controller
         $cylinder = $request->cyl;
         $sph = [$request->sph, number_format($request->sph, 2), number_format($request->sph + $request->cyl, 2)];
         $cyl = [$request->cyl, number_format(0 - $request->cyl, 2)];
+        dd($sph);
+        dd($cyl);
+        die;
         $add = [number_format($request->add, 2), number_format($request->add + 0.25, 2), number_format($request->add - 0.25, 2)];
         $powers = Power::all();
         $types = Type::all();
