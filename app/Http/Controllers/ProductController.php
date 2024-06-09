@@ -64,7 +64,7 @@ class ProductController extends Controller
         $materials = Material::pluck('name', 'id');
         $products = [];
         $powers = Power::all();
-        $inputs = array(1, 1, 1, '', '', '', '', '');
+        $inputs = array('', '', '', '', '', '', '', '');
         return view('product.track', compact('types', 'coatings', 'materials', 'products', 'inputs', 'powers'));
     }
 
