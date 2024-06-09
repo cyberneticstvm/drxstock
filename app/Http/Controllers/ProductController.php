@@ -6,6 +6,7 @@ use App\Imports\ProductImport;
 use App\Models\Category;
 use App\Models\Coating;
 use App\Models\Material;
+use App\Models\Power;
 use App\Models\Product;
 use App\Models\Type;
 use Exception;
@@ -62,8 +63,9 @@ class ProductController extends Controller
         $coatings = Coating::pluck('name', 'id');
         $materials = Material::pluck('name', 'id');
         $products = [];
+        $powers = Power::all();
         $inputs = array(1, 1, 1, '', '', '', '', '');
-        return view('product.track', compact('types', 'coatings', 'materials', 'products', 'inputs'));
+        return view('product.track', compact('types', 'coatings', 'materials', 'products', 'inputs', 'powers'));
     }
 
     function trackFetch(Request $request)
@@ -86,6 +88,7 @@ class ProductController extends Controller
         $sph = [$request->sph, number_format($request->sph, 2)];
         $cyl = [$request->cyl, number_format(0 - $request->cyl, 2)];
         $add = [number_format($request->add, 2), number_format($request->add + 0.25, 2), number_format($request->add - 0.25, 2)];
+        $powers = Power::all();
         $types = Type::pluck('name', 'id');
         $coatings = Coating::pluck('name', 'id');
         $materials = Material::pluck('name', 'id');
@@ -125,7 +128,7 @@ class ProductController extends Controller
         } catch (Exception $e) {
             return back()->with("error", $e->getMessage())->withInput($request->all());
         }
-        return view('product.track', compact('types', 'coatings', 'materials', 'products', 'inputs'));
+        return view('product.track', compact('types', 'coatings', 'materials', 'products', 'inputs', 'powers'));
     }
 
     /**
