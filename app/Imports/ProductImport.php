@@ -26,11 +26,11 @@ class ProductImport implements ToModel, WithStartRow
 
     public function model(array $row)
     {
-        $category = Category::where('name', strval($row[1]))->first();
-        $type = Type::where('name', strval($row[2]))->first();
-        $material = Material::where('name', strval($row[3]))->first();
-        $coating = Coating::where('name', strval($row[4]))->first();
-        $product = Product::where('category_id', $category->id ?? 0)->where('type_id', $type->id ?? 0)->where('material_id', $material->id ?? 0)->where('coating_id', $coating->id ?? 0)->where('sph', strval($row[6]))->where('cyl', strval($row[7]))->where('axis', strval($row[8]))->where('add', strval($row[9]));
+        $category = Category::where('name', strval($row[0]))->first();
+        $type = Type::where('name', strval($row[1]))->first();
+        $material = Material::where('name', strval($row[2]))->first();
+        $coating = Coating::where('name', strval($row[3]))->first();
+        $product = Product::where('category_id', $category->id ?? 0)->where('type_id', $type->id ?? 0)->where('material_id', $material->id ?? 0)->where('coating_id', $coating->id ?? 0)->where('sph', strval($row[5]))->where('cyl', strval($row[6]))->where('axis', strval($row[7]))->where('add', strval($row[8]));
         if ($product->exists()) :
             $this->data[] = [
                 'product_name' => $row[1],
@@ -43,13 +43,13 @@ class ProductImport implements ToModel, WithStartRow
                 'type_id' => $type->id,
                 'material_id' => $material->id,
                 'coating_id' => $coating->id,
-                'eye' => strval($row[5]),
-                'sph' => strval($row[6]),
-                'cyl' => strval($row[7]),
-                'axis' => strval($row[8]),
-                'add' => strval($row[9]),
-                'shelf' => strval($row[10]),
-                'box' => strval($row[11]),
+                'eye' => strval($row[4]),
+                'sph' => strval($row[5]),
+                'cyl' => strval($row[6]),
+                'axis' => strval($row[7]),
+                'add' => strval($row[8]),
+                'shelf' => strval($row[9]),
+                'box' => strval($row[10]),
                 'created_by' => $this->request->user()->id,
                 'updated_by' => $this->request->user()->id,
                 'created_at' => Carbon::now(),
