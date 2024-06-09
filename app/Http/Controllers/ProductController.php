@@ -110,16 +110,17 @@ class ProductController extends Controller
                 return $q->whereBetween('axis', [$request->axis - 40, $request->axis + 40]);
             })->when($request->add != '', function ($q) use ($add) {
                 return $q->whereIn('add', $add);
-            })->when($request->sph != 0 && $request->cyl == 0, function ($q) use ($sph) {
-                return $q->whereIn('sph', $sph)->whereNull('cyl')->orwhere('cyl', 0);
-            })->when($request->sph == 0 && $request->cyl != 0, function ($q) use ($cyl) {
-                return $q->whereIn('cyl', $cyl)->whereNull('sph')->orWhere('sph', 0);
-            })->when($request->sph != 0 && $request->cyl != 0, function ($q) use ($sph, $cyl) {
-                return $q->whereIn('sph', $sph)->orWhereIn('cyl', $cyl);
-                /*return $q->whereRaw("IF($spherical, CAST($spherical AS DECIMAL(4,2)) = CAST(sph AS DECIMAL(4,2))+CAST(cyl AS DECIMAL(4,2)), 1)")->whereRaw("IF($cylinder, CAST($cylinder AS DECIMAL(4,2)) = CAST(0-cyl AS DECIMAL(4,2)), 1)")->orWhereRaw("sph=$spherical AND cyl=$cylinder");*/
+            })->when($request->sph != 0 && $request->cyl == 0, function ($q) use ($sph, $request) {
+                return $q->where('coating_id', $request->coating_id)->where('type_id', $request->type_id)->where('material_id', $request->material_id)->whereIn('sph', $sph)->whereNull('cyl')->orwhere('cyl', 0);
+            })->when($request->sph == 0 && $request->cyl != 0, function ($q) use ($cyl, $request) {
+                return $q->where('coating_id', $request->coating_id)->where('type_id', $request->type_id)->where('material_id', $request->material_id)->whereIn('cyl', $cyl)->whereNull('sph')->orWhere('sph', 0);
+            })->when($request->sph != 0 && $request->cyl != 0, function ($q) use ($sph, $cyl, $request) {
+                return $q->where('coating_id', $request->coating_id)->where('type_id', $request->type_id)->where('material_id', $request->material_id)->whereIn('sph', $sph)->orWhereIn('cyl', $cyl);
             })->when($request->eye != '', function ($q) use ($request) {
-                return $q->where('eye', $request->eye);
-            })->where('coating_id', $request->coating_id)->where('type_id', $request->type_id)->where('material_id', $request->material_id)->orderByDesc('add')->get();
+                return $q->where('coating_id', $request->coating_id)->where('type_id', $request->type_id)->where('material_id', $request->material_id)->where('eye', $request->eye);
+            })->orderByDesc('add')->get();
+
+            /*return $q->whereRaw("IF($spherical, CAST($spherical AS DECIMAL(4,2)) = CAST(sph AS DECIMAL(4,2))+CAST(cyl AS DECIMAL(4,2)), 1)")->whereRaw("IF($cylinder, CAST($cylinder AS DECIMAL(4,2)) = CAST(0-cyl AS DECIMAL(4,2)), 1)")->orWhereRaw("sph=$spherical AND cyl=$cylinder");*/
         } catch (Exception $e) {
             return back()->with("error", $e->getMessage())->withInput($request->all());
         }
