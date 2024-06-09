@@ -85,7 +85,7 @@ class ProductController extends Controller
         $axis = $request->axis;
         $spherical = $request->sph;
         $cylinder = $request->cyl;
-        $sph = [$request->sph, number_format($request->sph, 2)];
+        $sph = [$request->sph, number_format($request->sph, 2), number_format($request->sph + $request->cyl, 2)];
         $cyl = [$request->cyl, number_format(0 - $request->cyl, 2)];
         $add = [number_format($request->add, 2), number_format($request->add + 0.25, 2), number_format($request->add - 0.25, 2)];
         $powers = Power::all();
@@ -112,10 +112,10 @@ class ProductController extends Controller
                 return $q->whereIn('add', $add);
             })->when($request->sph != 0 && $request->cyl == 0, function ($q) use ($sph) {
                 return $q->whereIn('sph', $sph)->whereNull('cyl')->orwhere('cyl', 0);
-            })->when($request->sph == 0 && $request->cyl != 0, function ($q) use ($cyl, $cylinder) {
+            })->when($request->sph == 0 && $request->cyl != 0, function ($q) use ($cyl) {
                 return $q->whereIn('cyl', $cyl)->whereNull('sph')->orWhere('sph', 0);
-            })->when($request->sph != 0 && $request->cyl != 0, function ($q) use ($spherical, $cylinder) {
-                return $q->where('sph', $spherical)->orWhere('sph', "CAST($spherical AS DECIMAL(4,2))+CAST($cylinder AS DECIMAL(4,2))")->where('cyl', $cylinder)->orWhere('cyl', "CAST(0-$cylinder AS DECIMAL(4,2))");
+            })->when($request->sph != 0 && $request->cyl != 0, function ($q) use ($sph, $cyl) {
+                return $q->whereIn('sph', $sph)->whereIn('cyl', $cyl);
                 /*return $q->whereRaw("IF($spherical, CAST($spherical AS DECIMAL(4,2)) = CAST(sph AS DECIMAL(4,2))+CAST(cyl AS DECIMAL(4,2)), 1)")->whereRaw("IF($cylinder, CAST($cylinder AS DECIMAL(4,2)) = CAST(0-cyl AS DECIMAL(4,2)), 1)")->orWhereRaw("sph=$spherical AND cyl=$cylinder");*/
             })->when($request->eye != '', function ($q) use ($request) {
                 return $q->where('eye', $request->eye);
