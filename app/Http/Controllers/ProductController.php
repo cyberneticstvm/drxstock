@@ -105,7 +105,7 @@ class ProductController extends Controller
                 $axis = [$axis];
         endswitch;
         $products = Product::withTrashed()->when($request->sph != null && $request->cyl != null, function ($q) use ($spherical, $cylinder) {
-            return $q->whereRaw("IF($spherical, CAST($spherical AS DECIMAL(4,2)) = CAST(sph AS DECIMAL(4,2))+CAST(cyl AS DECIMAL(4,2)), 1)")->whereRaw("IF($cylinder, CAST($cylinder AS DECIMAL(4,2)) = CAST(0-cyl AS DECIMAL(4,2)), 1)");
+            return $q->whereRaw("IF($spherical, CAST($spherical AS DECIMAL(4,2)) = CAST(sph AS DECIMAL(4,2))+CAST(cyl AS DECIMAL(4,2)), 1)")->whereRaw("IF($cylinder, CAST($cylinder AS DECIMAL(4,2)) = CAST(0-cyl AS DECIMAL(4,2)), 1)")->orWhereRaw("sph=$spherical AND cyl=$cylinder");
         })->when($request->sph != null && $request->cyl == null, function ($q) use ($sph) {
             return $q->whereIn('sph', $sph)->whereNull('cyl')->orWhere('cyl', '0.00');
         })->when($request->sph == null && $request->cyl != null, function ($q) use ($cyl) {
