@@ -106,7 +106,7 @@
                                     <th>Type</th>
                                     <th>Coating</th>
                                     <th>Material</th>
-                                    <th>[Eye | Sph | Cyl | Axis | Add]</th>
+                                    <th>[Eye &nbsp;|&nbsp; Sph &nbsp;|&nbsp; Cyl &nbsp;|&nbsp; Axis &nbsp;|&nbsp; Add]</th>
                                     <th>Shelf</th>
                                     <th>Box</th>
                                     <th>Status</th>
