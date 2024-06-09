@@ -33,7 +33,7 @@ class ProductImport implements ToModel, WithStartRow
         $product = Product::where('category_id', $category->id ?? 0)->where('type_id', $type->id ?? 0)->where('material_id', $material->id ?? 0)->where('coating_id', $coating->id ?? 0)->where('sph', strval($row[6]))->where('cyl', strval($row[7]))->where('axis', strval($row[8]))->where('add', strval($row[9]));
         if ($product->exists()) :
             $this->data[] = [
-                'product_name' => $row[0],
+                'product_name' => $row[1],
             ];
         else :
             return new Product([
