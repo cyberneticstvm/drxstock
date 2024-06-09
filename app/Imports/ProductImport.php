@@ -26,6 +26,8 @@ class ProductImport implements ToModel, WithStartRow
 
     public function model(array $row)
     {
+        echo strval($row[0]);
+        die;
         $type = Type::where('name', strval($row[0]))->first();
         $material = Material::where('name', strval($row[1]))->first();
         $coating = Coating::where('name', strval($row[2]))->first();

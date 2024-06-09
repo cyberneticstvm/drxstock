@@ -41,16 +41,16 @@ class ProductController extends Controller
         $request->validate([
             'data_file' => 'required|mimes:xlsx',
         ]);
-        try {
-            $import = new ProductImport($request);
-            Excel::import($import, $request->file('data_file')->store('temp'));
-            if ($import->data) :
-                Session::put('failed_import_data', $import->data);
-                return redirect()->route('import.failed')->with("warning", "Some products weren't uploaded. Please check the excel file for more info.");
-            endif;
-        } catch (Exception $e) {
-            return back()->with("error", $e->getMessage());
-        }
+        //try {
+        $import = new ProductImport($request);
+        Excel::import($import, $request->file('data_file')->store('temp'));
+        if ($import->data) :
+            Session::put('failed_import_data', $import->data);
+            return redirect()->route('import.failed')->with("warning", "Some products weren't uploaded. Please check the excel file for more info.");
+        endif;
+        //} catch (Exception $e) {
+        //return back()->with("error", $e->getMessage());
+        //}
         return back()->with("success", "Products Uploaded Successfully");
     }
 
