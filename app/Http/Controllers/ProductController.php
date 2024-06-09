@@ -104,7 +104,7 @@ class ProductController extends Controller
                 default:
                     $axis = [$axis];
             endswitch;
-            $products = Product::withTrashed()->where('coating_id', $request->coating_id)->where('type_id', $request->type_id)->where('material_id', $request->material_id)->when($request->axis != '', function ($q) use ($axis) {
+            $products = Product::withTrashed()->when($request->axis != '', function ($q) use ($axis) {
                 return $q->whereIn('axis', $axis);
             })->when($type->category_id == 1 && $request->axis != '', function ($q) use ($request) {
                 return $q->whereBetween('axis', [$request->axis - 40, $request->axis + 40]);
@@ -118,7 +118,7 @@ class ProductController extends Controller
                 return $q->whereIn('sph', $sph)->whereIn('cyl', $cyl);
             })->when($request->eye != '', function ($q) use ($request) {
                 return $q->where('eye', $request->eye);
-            })->orderByDesc('add')->get();
+            })->where('coating_id', $request->coating_id)->where('type_id', $request->type_id)->where('material_id', $request->material_id)->orderByDesc('add')->get();
 
             /*return $q->whereRaw("IF($spherical, CAST($spherical AS DECIMAL(4,2)) = CAST(sph AS DECIMAL(4,2))+CAST(cyl AS DECIMAL(4,2)), 1)")->whereRaw("IF($cylinder, CAST($cylinder AS DECIMAL(4,2)) = CAST(0-cyl AS DECIMAL(4,2)), 1)")->orWhereRaw("sph=$spherical AND cyl=$cylinder");*/
         } catch (Exception $e) {
