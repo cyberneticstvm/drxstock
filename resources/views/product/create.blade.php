@@ -42,7 +42,7 @@
                                 @error('data_file')
                                 <small class="text-danger">{{ $errors->first('data_file') }}</small>
                                 @enderror
-                                <div class="mt-3"><small><a href="{{ asset('/assets/docs/products.xlsx') }}">Click here to download the format</a></small></div>
+                                <div class="mt-3"><small><a href="{{ asset('/assets/docs/products_template.xlsx') }}">Click here to download the format</a></small></div>
                             </div>
                         </div>
                         {{ html()->form()->close() }}
