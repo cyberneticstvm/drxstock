@@ -104,18 +104,20 @@ class ProductController extends Controller
                 default:
                     $axis = [$axis];
             endswitch;
-            $products = Product::withTrashed()->when($request->axis != '', function ($q) use ($axis) {
-                return $q->whereIn('axis', $axis);
+            $products = Product::withTrashed()->when($request->sph != 0 && $request->cyl == 0, function ($q) use ($sph) {
+                return $q->whereIn('sph', $sph)->whereNull('cyl')->orwhere('cyl', '0.00');
+            })->when($request->sph != 0 && $request->cyl == 0, function ($q) use ($sph) {
+                return $q->whereIn('sph', $sph)->whereNull('cyl')->orWhere('cyl', '0.00');
+            })->when($request->sph == 0 && $request->cyl != 0, function ($q) use ($cyl) {
+                return $q->whereIn('cyl', $cyl)->whereNull('sph')->orWhere('sph', '0.00');
+            })->when($request->sph != 0 && $request->cyl != 0, function ($q) use ($sph, $cyl) {
+                return $q->whereIn('sph', $sph)->orWhereIn('cyl', $cyl);
             })->when($type->category_id == 1 && $request->axis != '', function ($q) use ($request) {
                 return $q->whereBetween('axis', [$request->axis - 40, $request->axis + 40]);
+            })->when($request->axis != '', function ($q) use ($axis) {
+                return $q->whereIn('axis', $axis);
             })->when($request->add != '', function ($q) use ($add) {
                 return $q->whereIn('add', $add);
-            })->when($request->sph != 0 && $request->cyl == 0, function ($q) use ($sph, $request) {
-                return $q->whereIn('sph', $sph)->whereNull('cyl')->orwhere('cyl', 0);
-            })->when($request->sph == 0 && $request->cyl != 0, function ($q) use ($cyl, $request) {
-                return $q->whereIn('cyl', $cyl)->whereNull('sph')->orWhere('sph', 0);
-            })->when($request->sph != 0 && $request->cyl != 0, function ($q) use ($sph, $cyl, $request) {
-                return $q->whereIn('sph', $sph)->orWhereIn('cyl', $cyl);
             })->when($request->eye != '', function ($q) use ($request) {
                 return $q->where('eye', $request->eye);
             })->where('coating_id', $request->coating_id)->where('type_id', $request->type_id)->where('material_id', $request->material_id)->orderByDesc('add')->get();
