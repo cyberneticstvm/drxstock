@@ -115,7 +115,7 @@ class ProductController extends Controller
             })->when($request->sph == 0 && $request->cyl != 0, function ($q) use ($cyl, $request) {
                 return $q->whereIn('cyl', $cyl)->whereNull('sph')->orWhere('sph', 0);
             })->when($request->sph != 0 && $request->cyl != 0, function ($q) use ($sph, $cyl, $request) {
-                return $q->whereIn('sph', $sph)->orWhereIn('cyl', $cyl);
+                return $q->where('sph', $sph[0])->orWhere('sph', $sph[1])->orWhere('sph', $sph[2])->where('cyl', $cyl[0])->orWhere('cyl', $cyl[1]);
             })->when($request->eye != '', function ($q) use ($request) {
                 return $q->where('eye', $request->eye);
             })->where('coating_id', $request->coating_id)->where('type_id', $request->type_id)->where('material_id', $request->material_id)->orderByDesc('add')->get();
