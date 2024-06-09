@@ -110,13 +110,13 @@ class ProductController extends Controller
                 return $q->whereBetween('axis', [$request->axis - 40, $request->axis + 40]);
             })->when($request->add != '', function ($q) use ($add) {
                 return $q->whereIn('add', $add);
-            })->when($request->sph != '' && $request->cyl != '', function ($q) use ($spherical, $cylinder) {
-                return $q->where('sph', $spherical)->orWhere('sph', "CAST($spherical AS DECIMAL(4,2)) = CAST(sph AS DECIMAL(4,2))+CAST(cyl AS DECIMAL(4,2))")->where('cyl', $cylinder)->orWhere('cyl', "CAST($cylinder AS DECIMAL(4,2)) = CAST(0-cyl AS DECIMAL(4,2))");
-                /*return $q->whereRaw("IF($spherical, CAST($spherical AS DECIMAL(4,2)) = CAST(sph AS DECIMAL(4,2))+CAST(cyl AS DECIMAL(4,2)), 1)")->whereRaw("IF($cylinder, CAST($cylinder AS DECIMAL(4,2)) = CAST(0-cyl AS DECIMAL(4,2)), 1)")->orWhereRaw("sph=$spherical AND cyl=$cylinder");*/
             })->when($request->sph != '' && $request->cyl == '', function ($q) use ($sph) {
                 return $q->whereIn('sph', $sph)->whereNull('cyl')->orwhere('cyl', 0);
             })->when($request->sph == '' && $request->cyl != '', function ($q) use ($cyl, $cylinder) {
                 return $q->whereIn('cyl', $cyl)->whereNull('sph')->orWhere('sph', 0);
+            })->when($request->sph != '' && $request->cyl != '', function ($q) use ($spherical, $cylinder) {
+                return $q->where('sph', $spherical)->orWhere('sph', "CAST($spherical AS DECIMAL(4,2)) = CAST(sph AS DECIMAL(4,2))+CAST(cyl AS DECIMAL(4,2))")->where('cyl', $cylinder)->orWhere('cyl', "CAST($cylinder AS DECIMAL(4,2)) = CAST(0-cyl AS DECIMAL(4,2))");
+                /*return $q->whereRaw("IF($spherical, CAST($spherical AS DECIMAL(4,2)) = CAST(sph AS DECIMAL(4,2))+CAST(cyl AS DECIMAL(4,2)), 1)")->whereRaw("IF($cylinder, CAST($cylinder AS DECIMAL(4,2)) = CAST(0-cyl AS DECIMAL(4,2)), 1)")->orWhereRaw("sph=$spherical AND cyl=$cylinder");*/
             })->when($request->eye != '', function ($q) use ($request) {
                 return $q->where('eye', $request->eye);
             })->when($request->coating_id != '', function ($q) use ($request) {
