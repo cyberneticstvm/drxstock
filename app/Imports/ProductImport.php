@@ -26,7 +26,7 @@ class ProductImport implements ToModel, WithStartRow
 
     public function model(array $row)
     {
-        $type = Type::where('name', strval($row[1]))->first();
+        $type = Type::where('name', strval($row[0]))->first();
         $material = Material::where('name', strval($row[2]))->first();
         $coating = Coating::where('name', strval($row[3]))->first();
         $product = Product::where('category_id', $type->category_id ?? 0)->where('type_id', $type->id ?? 0)->where('material_id', $material->id ?? 0)->where('coating_id', $coating->id ?? 0)->where('sph', strval($row[4]))->where('cyl', strval($row[5]))->where('axis', strval($row[6]))->where('add', strval($row[7]));
@@ -36,7 +36,7 @@ class ProductImport implements ToModel, WithStartRow
             ];
         else :
             return new Product([
-                'name' => $type->name,
+                'name' => $type?->name,
                 'code' => productcode('Lens'),
                 'category_id' => $type->category_id,
                 'type_id' => $type->id,
