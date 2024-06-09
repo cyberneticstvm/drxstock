@@ -59,7 +59,7 @@ class ProductController extends Controller
      */
     public function track()
     {
-        $types = Type::pluck('name', 'id');
+        $types = Type::all();
         $coatings = Coating::pluck('name', 'id');
         $materials = Material::pluck('name', 'id');
         $products = [];
@@ -89,7 +89,7 @@ class ProductController extends Controller
         $cyl = [$request->cyl, number_format(0 - $request->cyl, 2)];
         $add = [number_format($request->add, 2), number_format($request->add + 0.25, 2), number_format($request->add - 0.25, 2)];
         $powers = Power::all();
-        $types = Type::pluck('name', 'id');
+        $types = Type::all();
         $coatings = Coating::pluck('name', 'id');
         $materials = Material::pluck('name', 'id');
         $inputs = array($request->type_id, $request->material_id, $request->coating_id, $request->sph, $request->cyl, $request->axis, $request->add, $request->eye);
@@ -104,13 +104,7 @@ class ProductController extends Controller
                 default:
                     $axis = [$axis];
             endswitch;
-            $products = Product::withTrashed()->when($request->coating_id != '', function ($q) use ($request) {
-                return $q->where('coating_id', $request->coating_id);
-            })->when($request->type_id != '', function ($q) use ($request) {
-                return $q->where('type_id', $request->type_id);
-            })->when($request->material_id != '', function ($q) use ($request) {
-                return $q->where('material_id', $request->material_id);
-            })->when($request->axis != '', function ($q) use ($axis) {
+            $products = Product::withTrashed()->when($request->axis != '', function ($q) use ($axis) {
                 return $q->whereIn('axis', $axis);
             })->when($type->category_id == 1 && $request->axis != '', function ($q) use ($request) {
                 return $q->whereBetween('axis', [$request->axis - 40, $request->axis + 40]);
@@ -124,6 +118,12 @@ class ProductController extends Controller
                 return $q->whereIn('cyl', $cyl)->whereNull('sph')->orWhere('sph', 0);
             })->when($request->eye != '', function ($q) use ($request) {
                 return $q->where('eye', $request->eye);
+            })->when($request->coating_id != '', function ($q) use ($request) {
+                return $q->where('coating_id', $request->coating_id);
+            })->when($request->type_id != '', function ($q) use ($request) {
+                return $q->where('type_id', $request->type_id);
+            })->when($request->material_id != '', function ($q) use ($request) {
+                return $q->where('material_id', $request->material_id);
             })->orderByDesc('add')->get();
         } catch (Exception $e) {
             return back()->with("error", $e->getMessage())->withInput($request->all());

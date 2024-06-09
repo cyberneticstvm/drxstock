@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AjaxController;
 use App\Http\Controllers\ApiController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CoatingController;
@@ -17,6 +18,10 @@ Route::prefix('/')->controller(HelperController::class)->group(function () {
 });
 
 Route::middleware(['web', 'auth'])->group(function () {
+
+    Route::prefix('/ajax')->controller(AjaxController::class)->group(function () {
+        Route::get('/change/type', 'changeType')->name('ajax.change.type');
+    });
 
     Route::prefix('/order')->controller(ApiController::class)->group(function () {
         Route::get('/', 'order')->name('order');

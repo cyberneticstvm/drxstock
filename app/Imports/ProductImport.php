@@ -37,7 +37,7 @@ class ProductImport implements ToModel, WithStartRow
             ];
         else :
             return new Product([
-                'name' => $row[0],
+                'name' => $type->name,
                 'code' => productcode('Lens'),
                 'category_id' => $category->id,
                 'type_id' => $type->id,
