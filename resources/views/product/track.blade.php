@@ -64,7 +64,6 @@
                                 <label for="SquareInput" class="form-label">Cyl</label>
                                 {{ html()->select('cyl', $powers->where('name', 'cyl')->pluck('value', 'value'), old('cyl') ? old('cyl') : $inputs[4])->class("form-control form-control-lg select2")->placeholder("0.00") }}
                             </div>
-                            @if($type?->category_id == 2)
                             <div class="col-lg-1 divAxis">
                                 <label for="SquareInput" class="form-label">Axis</label>
                                 {{ html()->select('axis', $powers->where('name', 'axis')->pluck('value', 'value'), old('axis') ? old('axis') : $inputs[5])->class("form-control form-control-lg select2 selAxis")->placeholder("0") }}
@@ -73,13 +72,10 @@
                                 <label for="SquareInput" class="form-label">Add</label>
                                 {{ html()->select('add', $powers->where('name', 'add')->pluck('value', 'value'), old('add') ? old('add') : $inputs[6])->class("form-control form-control-lg select2 selAdd")->placeholder("0.00") }}
                             </div>
-                            @endif
-                            @if($type?->category_id == 2 || $type?->category_id == 3)
                             <div class="col-lg-1 divEye">
                                 <label for="SquareInput" class="form-label">Eye</label>
                                 {{ html()->select('eye', array('RE' => 'RE', 'LE' => 'LE', 'BOTH' => 'BOTH'),  old('eye') ? old('eye') : $inputs[7])->class("form-control form-control-lg select2 selEye")->placeholder("Select") }}
                             </div>
-                            @endif
                         </div>
                         <div class="row g-3">
                             <div class="col text-end">
