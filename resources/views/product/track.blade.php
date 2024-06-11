@@ -32,6 +32,7 @@
                     </div>
                     <div class="card-body">
                         {{ html()->form('POST', route('product.track.fetch'))->open() }}
+                        <input type="hidden" name="category_id" value="{{ $inputs[8] }}" />
                         <div class="row g-3">
                             <div class="col-lg-2">
                                 <label for="SquareInput" class="form-label req">Type</label>
@@ -64,16 +65,16 @@
                                 <label for="SquareInput" class="form-label">Cyl</label>
                                 {{ html()->select('cyl', $powers->where('name', 'cyl')->pluck('value', 'value'), old('cyl') ? old('cyl') : $inputs[4])->class("form-control form-control-lg select2")->placeholder("0.00") }}
                             </div>
-                            <div class="col-lg-1 divAxis {{ ($inputs[8] == 3) ? 'd-none' : '' }}">
+                            <div class="col-lg-1 divAxis {{ ($inputs[8] == 3 || old('category_id') == 3) ? 'd-none' : '' }}">
                                 <label for="SquareInput" class="form-label">Axis</label>
                                 {{ html()->select('axis', $powers->where('name', 'axis')->pluck('value', 'value'), old('axis') ? old('axis') : $inputs[5])->class("form-control form-control-lg select2 selAxis")->placeholder("0") }}
                             </div>
-                            <div class="col-lg-1 divAdd {{ ($inputs[8] == 3) ? 'd-none' : '' }}">
+                            <div class="col-lg-1 divAdd {{ ($inputs[8] == 3 || old('category_id') == 3) ? 'd-none' : '' }}">
                                 <label for="SquareInput" class="form-label">Add</label>
                                 {{ html()->select('add', $powers->where('name', 'add')->pluck('value', 'value'), old('add') ? old('add') : $inputs[6])->class("form-control form-control-lg select2 selAdd")->placeholder("0.00") }}
                             </div>
-                            <div class="col-lg-1 divEye {{ ($inputs[8] == 1) ? 'd-none' : '' }}">
-                                <label for="SquareInput" class="form-label">Eye{{ $inputs[8] }}</label>
+                            <div class="col-lg-1 divEye {{ ($inputs[8] == 1 || old('category_id') == 1) ? 'd-none' : '' }}">
+                                <label for="SquareInput" class="form-label">Eye</label>
                                 {{ html()->select('eye', array('RE' => 'RE', 'LE' => 'LE', 'BOTH' => 'BOTH'),  old('eye') ? old('eye') : $inputs[7])->class("form-control form-control-lg select2 selEye")->placeholder("Select") }}
                             </div>
                         </div>
