@@ -123,10 +123,14 @@ class ProductController extends Controller
             })->where('coating_id', $request->coating_id)->where('type_id', $request->type_id)->where('material_id', $request->material_id)->orderByDesc('add')->get();
 
             /*return $q->whereRaw("IF($spherical, CAST($spherical AS DECIMAL(4,2)) = CAST(sph AS DECIMAL(4,2))+CAST(cyl AS DECIMAL(4,2)), 1)")->whereRaw("IF($cylinder, CAST($cylinder AS DECIMAL(4,2)) = CAST(0-cyl AS DECIMAL(4,2)), 1)")->orWhereRaw("sph=$spherical AND cyl=$cylinder");*/
+            if ($products->isNotEmpty()) :
+                return view('product.track', compact('types', 'coatings', 'materials', 'products', 'inputs', 'powers'));
+            else :
+                return back()->with("error", "No products found!")->withInput($request->all());
+            endif;
         } catch (Exception $e) {
             return back()->with("error", $e->getMessage())->withInput($request->all());
         }
-        return view('product.track', compact('types', 'coatings', 'materials', 'products', 'inputs', 'powers'));
     }
 
     /**
