@@ -65,8 +65,7 @@ class ProductController extends Controller
         $products = [];
         $powers = Power::all();
         $inputs = array('', '', '', '', '', '', '', '');
-        $type = Type::where('category_id', 2)->first();
-        return view('product.track', compact('types', 'coatings', 'materials', 'products', 'inputs', 'powers', 'type'));
+        return view('product.track', compact('types', 'coatings', 'materials', 'products', 'inputs', 'powers'));
     }
 
     function trackFetch(Request $request)
@@ -94,7 +93,6 @@ class ProductController extends Controller
         $coatings = Coating::pluck('name', 'id');
         $materials = Material::pluck('name', 'id');
         $inputs = array($request->type_id, $request->material_id, $request->coating_id, $request->sph, $request->cyl, $request->axis, $request->add, $request->eye);
-        $type = Type::findOrFail($request->type_id);
         try {
             switch ($axis):
                 case $axis <= 90:
@@ -128,7 +126,7 @@ class ProductController extends Controller
         } catch (Exception $e) {
             return back()->with("error", $e->getMessage())->withInput($request->all());
         }
-        return view('product.track', compact('types', 'coatings', 'materials', 'products', 'inputs', 'powers', 'type'));
+        return view('product.track', compact('types', 'coatings', 'materials', 'products', 'inputs', 'powers'));
     }
 
     /**
