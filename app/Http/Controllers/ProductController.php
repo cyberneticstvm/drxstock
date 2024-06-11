@@ -114,7 +114,7 @@ class ProductController extends Controller
                 return $q->where('coating_id', $request->coating_id)->where('type_id', $request->type_id)->where('material_id', $request->material_id)->whereNull('sph')->orWhere('sph', '0.00')->whereNull('cyl')->orwhere('cyl', '0.00');
             })->when($request->axis != '', function ($q) use ($axis, $request) {
                 return $q->where('coating_id', $request->coating_id)->where('type_id', $request->type_id)->where('material_id', $request->material_id)->whereIn('axis', $axis);
-            })->when($request->eye != null, function ($q) use ($request) {
+            })->when($request->eye, function ($q) use ($request) {
                 return $q->where('coating_id', $request->coating_id)->where('type_id', $request->type_id)->where('material_id', $request->material_id)->where('eye', $request->eye);
             })->where('coating_id', $request->coating_id)->where('type_id', $request->type_id)->where('material_id', $request->material_id)->where('add', $request->add ?? '0.00')->orderByDesc('add')->get();
 
