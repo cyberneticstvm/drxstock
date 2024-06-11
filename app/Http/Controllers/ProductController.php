@@ -126,7 +126,7 @@ class ProductController extends Controller
             if ($products->isNotEmpty()) :
                 return view('product.track', compact('types', 'coatings', 'materials', 'products', 'inputs', 'powers'));
             else :
-                return back()->with("error", "No products found!")->withInput($request->all());
+                return back()->with("error", "No products found!" . $request->add)->withInput($request->all());
             endif;
         } catch (Exception $e) {
             return back()->with("error", $e->getMessage())->withInput($request->all());
