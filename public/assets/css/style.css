@@ -15,3 +15,6 @@
     border-color: #dee2e6 !important;
     border-radius: 0 !important;
 }
+.hide{
+    display: none !important;
+}
