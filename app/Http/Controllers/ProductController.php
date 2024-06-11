@@ -65,7 +65,7 @@ class ProductController extends Controller
         $products = [];
         $powers = Power::all();
         $inputs = array('', '', '', '', '', '', '', '');
-        $type = collect();
+        $type = Type::where('category_id', 2)->first();
         return view('product.track', compact('types', 'coatings', 'materials', 'products', 'inputs', 'powers', 'type'));
     }
 
