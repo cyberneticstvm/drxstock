@@ -2,6 +2,7 @@ $(function () {
     "use strict"
     $('.myDataTable').dataTable();
     $('.select2').select2();
+    $(".hideDiv").hide();
 
     $(document).on("change", ".ptype", function(){
         let tid = $(this).val();
