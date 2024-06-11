@@ -104,7 +104,7 @@ class ProductController extends Controller
                 default:
                     $axis = [$axis];
             endswitch;
-            $products = Product::withTrashed()->when($request->sph != null && $request->cyl != null, function ($q) use ($spherical, $cylinder, $request) {
+            $products = Product::withTrashed()->where('add', $request->add ?? '0.00')->when($request->sph != null && $request->cyl != null, function ($q) use ($spherical, $cylinder, $request) {
                 return $q->where('coating_id', $request->coating_id)->where('type_id', $request->type_id)->where('material_id', $request->material_id)->whereRaw("IF($spherical, CAST($spherical AS DECIMAL(4,2)) = CAST(sph AS DECIMAL(4,2))+CAST(cyl AS DECIMAL(4,2)), 1)")->whereRaw("IF($cylinder, CAST($cylinder AS DECIMAL(4,2)) = CAST(0-cyl AS DECIMAL(4,2)), 1)")->orWhereRaw("sph=$spherical AND cyl=$cylinder");
             })->when($request->sph != null && $request->cyl == null, function ($q) use ($sph, $request) {
                 return $q->where('coating_id', $request->coating_id)->where('type_id', $request->type_id)->where('material_id', $request->material_id)->whereIn('sph', $sph)->whereNull('cyl')->orWhere('cyl', '0.00');
@@ -116,7 +116,7 @@ class ProductController extends Controller
                 return $q->where('coating_id', $request->coating_id)->where('type_id', $request->type_id)->where('material_id', $request->material_id)->whereIn('axis', $axis);
             })->when($request->eye, function ($q) use ($request) {
                 return $q->where('coating_id', $request->coating_id)->where('type_id', $request->type_id)->where('material_id', $request->material_id)->where('eye', $request->eye);
-            })->where('coating_id', $request->coating_id)->where('type_id', $request->type_id)->where('material_id', $request->material_id)->where('add', '0.75')->orderByDesc('add')->get();
+            })->where('coating_id', $request->coating_id)->where('type_id', $request->type_id)->where('material_id', $request->material_id)->orderByDesc('add')->get();
 
             /*return $q->whereRaw("IF($spherical, CAST($spherical AS DECIMAL(4,2)) = CAST(sph AS DECIMAL(4,2))+CAST(cyl AS DECIMAL(4,2)), 1)")->whereRaw("IF($cylinder, CAST($cylinder AS DECIMAL(4,2)) = CAST(0-cyl AS DECIMAL(4,2)), 1)")->orWhereRaw("sph=$spherical AND cyl=$cylinder");*/
             /*->when($type->category_id == 1 && $request->axis != '', function ($q) use ($request) {
