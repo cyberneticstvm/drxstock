@@ -105,7 +105,7 @@ class ProductController extends Controller
                     $axis = [$axis];
             endswitch;
             $products = Product::withTrashed()->when($request->sph != null && $request->cyl != null, function ($q) use ($spherical, $cylinder, $request) {
-                return $q->where('coating_id', $request->coating_id)->where('type_id', $request->type_id)->where('material_id', $request->material_id)->where('add', $request->add ?? '0.00')->whereRaw("IF($spherical, CAST($spherical AS DECIMAL(4,2)) = CAST(sph AS DECIMAL(4,2))+CAST(cyl AS DECIMAL(4,2)), 1)")->whereRaw("IF($cylinder, CAST($cylinder AS DECIMAL(4,2)) = CAST(0-cyl AS DECIMAL(4,2)), 1)")->orWhereRaw("sph=$spherical AND cyl=$cylinder AND add=" . $request->add ?? '0.00');
+                return $q->where('coating_id', $request->coating_id)->where('type_id', $request->type_id)->where('material_id', $request->material_id)->where('add', $request->add ?? '0.00')->whereRaw("IF($spherical, CAST($spherical AS DECIMAL(4,2)) = CAST(sph AS DECIMAL(4,2))+CAST(cyl AS DECIMAL(4,2)), 1)")->whereRaw("IF($cylinder, CAST($cylinder AS DECIMAL(4,2)) = CAST(0-cyl AS DECIMAL(4,2)), 1)")->orWhereRaw("sph=$spherical AND cyl=$cylinder AND `add`=" . $request->add ?? '0.00');
             })->when($request->sph != null && $request->cyl == null, function ($q) use ($sph, $request) {
                 return $q->where('coating_id', $request->coating_id)->where('type_id', $request->type_id)->where('material_id', $request->material_id)->whereIn('sph', $sph)->whereNull('cyl')->orWhere('cyl', '0.00');
             })->when($request->sph == null && $request->cyl != null, function ($q) use ($cyl, $request) {
