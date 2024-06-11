@@ -117,7 +117,7 @@ class ProductController extends Controller
             })->when($request->axis != '', function ($q) use ($axis, $request) {
                 return $q->where('coating_id', $request->coating_id)->where('type_id', $request->type_id)->where('material_id', $request->material_id)->whereIn('axis', $axis);
             })->when($request->add != null, function ($q) use ($add, $request) {
-                return $q->where('coating_id', $request->coating_id)->where('type_id', $request->type_id)->where('material_id', $request->material_id)->where('add', $request->add);
+                return $q->where('coating_id', $request->coating_id)->where('type_id', $request->type_id)->where('material_id', $request->material_id)->where('CAST(`add` AS DECIMAL(4,2)', $request->add);
             })->when($request->eye != null, function ($q) use ($request) {
                 return $q->where('coating_id', $request->coating_id)->where('type_id', $request->type_id)->where('material_id', $request->material_id)->where('eye', $request->eye);
             })->where('coating_id', $request->coating_id)->where('type_id', $request->type_id)->where('material_id', $request->material_id)->orderByDesc('add')->get();
