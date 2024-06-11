@@ -65,7 +65,7 @@ class ProductController extends Controller
         $products = [];
         $powers = Power::all();
         $inputs = array('', '', '', '', '', '', '', '');
-        $type = [];
+        $type = collect();
         return view('product.track', compact('types', 'coatings', 'materials', 'products', 'inputs', 'powers', 'type'));
     }
 
