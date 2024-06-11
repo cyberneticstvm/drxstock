@@ -73,7 +73,7 @@
                                 {{ html()->select('add', $powers->where('name', 'add')->pluck('value', 'value'), old('add') ? old('add') : $inputs[6])->class("form-control form-control-lg select2 selAdd")->placeholder("0.00") }}
                             </div>
                             <div class="col-lg-1 divEye {{ ($inputs[8] == 1) ? 'hideDiv' : '' }}">
-                                <label for="SquareInput" class="form-label">Eye{{ $inputs[7] }}</label>
+                                <label for="SquareInput" class="form-label">Eye{{ $inputs[8] }}</label>
                                 {{ html()->select('eye', array('RE' => 'RE', 'LE' => 'LE', 'BOTH' => 'BOTH'),  old('eye') ? old('eye') : $inputs[7])->class("form-control form-control-lg select2 selEye")->placeholder("Select") }}
                             </div>
                         </div>
