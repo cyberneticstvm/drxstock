@@ -32,16 +32,17 @@
                     </div>
                     <div class="card-body">
                         {{ html()->form('POST', route('order.fetch'))->open() }}
+                        <input type="hidden" name="type" value="order" />
                         <div class="row g-3">
                             <div class="col-lg-4 col-md-6">
                                 <label for="SquareInput" class="form-label req">Order ID</label>
                                 <div class="input-group ">
                                     {{ html()->text('order_id', $order ? $order->data->id : old('order_id'))->class("form-control form-control-lg")->placeholder("Order ID") }}
                                     {{ html()->submit("Fetch Order")->class("btn btn-submit btn-dark btn-lg") }}
-                                    @error('order_id')
-                                    <small class="text-danger">{{ $errors->first('order_id') }}</small>
-                                    @enderror
                                 </div>
+                                @error('order_id')
+                                <small class="text-danger">{{ $errors->first('order_id') }}</small>
+                                @enderror
                             </div>
                         </div>
                         {{ html()->form()->close() }}

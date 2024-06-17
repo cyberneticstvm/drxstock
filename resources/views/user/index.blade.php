@@ -30,7 +30,7 @@
                     <div class="card-header py-3 border-bottom-0">
                         <h6 class="card-title mb-0">User Register</h6>
                     </div>
-                    <div class="card-body">
+                    <div class="card-body table-responsive">
                         <table class="myDataTable table table-hover align-middle mb-0" style="width: 100%;">
                             <thead>
                                 <tr>

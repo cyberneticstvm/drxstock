@@ -11,19 +11,17 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('purchase_details', function (Blueprint $table) {
+        Schema::create('sales_details', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('purchase_id');
+            $table->unsignedBigInteger("sales_id");
             $table->unsignedBigInteger('product_id');
             $table->integer('qty')->default(0)->nullable();
-            $table->decimal('unit_purchase_price', 7, 2)->default(0)->nullable();
-            $table->decimal('unit_selling_price', 7, 2)->default(0)->nullable();
-            $table->decimal('total_purchase_price', 9, 2)->default(0)->nullable();
-            $table->decimal('total_selling_price', 9, 2)->default(0)->nullable();
+            $table->decimal('price', 7, 2)->default(0)->nullable();
+            $table->decimal('total', 7, 2)->default(0)->nullable();
             $table->boolean('is_return')->comment('null-no, 1-yes')->nullable();
             $table->unsignedBigInteger('returned_by')->nullable();
             $table->dateTime('returned_at')->nullable();
-            $table->foreign('purchase_id')->references('id')->on('purchases')->onDelete('restrict');
+            $table->foreign("sales_id")->references("id")->on("sales")->onDelete("restrict");
             $table->foreign('product_id')->references('id')->on('products')->onDelete('restrict');
             $table->timestamps();
             $table->softDeletes();
@@ -35,6 +33,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('purchase_details');
+        Schema::dropIfExists('sales_details');
     }
 };

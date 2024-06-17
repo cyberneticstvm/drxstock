@@ -8,6 +8,7 @@ use App\Http\Controllers\HelperController;
 use App\Http\Controllers\MaterialController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\PurchaseController;
+use App\Http\Controllers\SalesController;
 use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\TypeController;
 use App\Http\Controllers\UserController;
@@ -114,7 +115,7 @@ Route::middleware(['web', 'auth', 'role: admin'])->group(function () {
         Route::get('/delete/{id}', 'destroy')->name('purchase.delete');
     });
 
-    Route::prefix('/sales')->controller(PurchaseController::class)->group(function () {
+    Route::prefix('/sales')->controller(SalesController::class)->group(function () {
         Route::get('/', 'index')->name('sales.register');
         Route::get('/create', 'create')->name('sales.create');
         Route::post('/save', 'store')->name('sales.save');
