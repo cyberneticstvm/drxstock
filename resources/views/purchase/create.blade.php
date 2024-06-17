@@ -45,11 +45,11 @@
                                 {{ html()->text('supplier_invoice', old('supplier_invoice'))->class("form-control form-control-lg")->placeholder("Supplier Invoice") }}
                             </div>
                             <div class="col-md-2">
-                                <label for="SquareInput" class="form-label ">Supplier Invoice</label>
+                                <label for="SquareInput" class="form-label ">Order Date</label>
                                 {{ html()->date('order_date', old('order_date'))->class("form-control form-control-lg")->placeholder(date('Y-m-d')) }}
                             </div>
                             <div class="col-md-2">
-                                <label for="SquareInput" class="form-label ">Supplier Invoice</label>
+                                <label for="SquareInput" class="form-label ">Delivery Date</label>
                                 {{ html()->date('delivery_date', old('delivery_date'))->class("form-control form-control-lg")->placeholder(date('Y-m-d')) }}
                             </div>
                             <div class="col-md-5">
