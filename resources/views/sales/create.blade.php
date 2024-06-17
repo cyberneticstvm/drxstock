@@ -59,7 +59,7 @@
                         <input type="hidden" name="customer_name" value="{{ $order->data->name }}">
                         <input type="hidden" name="branch" value="{{ $order->branch->name }}">
                         <div class="row g-3">
-                            <div class="col">
+                            <div class="col-md-12">
                                 <table class="table table-bordered">
                                     <thead>
                                         <tr>
@@ -95,6 +95,12 @@
                                     @empty
                                     @endforelse
                                 </table>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="SquareInput" class="form-label ">Order Note</label>
+                                {{ html()->text('notes', old('notes'))->class("form-control form-control-lg")->if($old != '', function($ele){
+                                    return $ele->required()->placeholder("Order Note required since the order id has already been used");
+                                }) }}
                             </div>
                         </div>
                         <div class="row g-3">

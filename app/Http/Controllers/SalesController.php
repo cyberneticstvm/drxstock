@@ -34,7 +34,8 @@ class SalesController extends Controller
             $json = file_get_contents($url);
             $order = json_decode($json);
             $products = Product::selectRaw("CONCAT_WS(' ', code, name, CONCAT(sph,cyl,axis,`add`)) AS name, id")->pluck('name', 'id');
-            return view('sales.create', compact('order', 'products'));
+            $old = Sales::where('order_id', $request->order_id)->first();
+            return view('sales.create', compact('order', 'products', 'old'));
         } catch (Exception $e) {
             return redirect()->back()->with("error", $e->getMessage())->withInput($request->all());
         }
