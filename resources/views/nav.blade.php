@@ -112,7 +112,6 @@
                  {{
                     Menu::new()->addClass('sub-menu collapse')->setAttribute('id', 'menu-sales')
                     ->link(route('sales.register'), 'Sales Register')->addItemClass('ms-link')
-                    ->link(route('sales.create'), 'Create Sales')->addItemClass('ms-link')
                 }}
              </li>
 

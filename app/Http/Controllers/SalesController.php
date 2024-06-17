@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Product;
 use App\Models\Sales;
+use Exception;
 use Illuminate\Http\Request;
 
 class SalesController extends Controller
@@ -19,9 +21,23 @@ class SalesController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(Request $request)
     {
-        //
+        $request->validate([
+            'order_id' => 'required|numeric',
+        ]);
+        $order = collect();
+        try {
+            $oid = $request->order_id;
+            $secret = apiSecret();
+            $url = "https://order.speczone.net/api/order/$oid/$secret";
+            $json = file_get_contents($url);
+            $order = json_decode($json);
+            $products = Product::selectRaw("CONCAT_WS(' ', code, name, CONCAT(sph,cyl,axis,`add`)) AS name, id")->pluck('name', 'id');
+            return view('sales.create', compact('order', 'products'));
+        } catch (Exception $e) {
+            return redirect()->back()->with("error", $e->getMessage())->withInput($request->all());
+        }
     }
 
     /**

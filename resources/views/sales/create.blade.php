@@ -9,7 +9,7 @@
                 <div class="d-flex justify-content-between align-items-center py-2">
                     <ol class="breadcrumb rounded-0 mb-0 ps-0 bg-transparent flex-grow-1">
                         <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Home</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Sales Register</li>
+                        <li class="breadcrumb-item active" aria-current="page">Order Details</li>
                     </ol>
                     <div class="d-flex flex-wrap align-items-center">
                         <button class="btn btn-dark ms-1" type="button"><i class="fa fa-refresh"></i></button>
@@ -63,6 +63,7 @@
                                 <table class="table table-bordered">
                                     <thead>
                                         <tr>
+                                            <th class="text-center">Eye</th>
                                             <th width="60%">Product</th>
                                             <th class="text-center">Avlbl. Qty</th>
                                             <th class="text-center">Reqd.Qty</th>
@@ -73,6 +74,9 @@
                                         @forelse($order->odetail as $key => $item)
                                         @if(in_array($item->eye, ['re', 'le']))
                                         <tr>
+                                            <td>
+                                                {{ html()->text('eye[]', strtoupper($item->eye))->class("form-control form-control-lg text-center")->attribute('readonly')->placeholder("0") }}
+                                            </td>
                                             <td>
                                                 {{ html()->select('product_id[]', $products, '')->class("form-control form-control-lg select2")->attribute('id', $item->id)->placeholder("Select")->required() }}
                                             </td>

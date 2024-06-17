@@ -28,8 +28,8 @@ Route::middleware(['web', 'auth', 'role: admin'])->group(function () {
     });
 
     Route::prefix('/order')->controller(ApiController::class)->group(function () {
-        Route::get('/', 'order')->name('order');
-        Route::post('/', 'orderFetch')->name('order.fetch');
+        Route::get('/show', 'order')->name('order');
+        Route::post('/show', 'orderFetch')->name('order.fetch');
     });
 
     Route::prefix('/')->controller(HelperController::class)->group(function () {
@@ -117,7 +117,7 @@ Route::middleware(['web', 'auth', 'role: admin'])->group(function () {
 
     Route::prefix('/sales')->controller(SalesController::class)->group(function () {
         Route::get('/', 'index')->name('sales.register');
-        Route::get('/create', 'create')->name('sales.create');
+        Route::post('/', 'create')->name('sales.create');
         Route::post('/save', 'store')->name('sales.save');
         Route::get('/edit/{id}', 'edit')->name('sales.edit');
         Route::post('/update/{id}', 'update')->name('sales.update');

@@ -32,7 +32,6 @@
                     </div>
                     <div class="card-body">
                         {{ html()->form('POST', route('order.fetch'))->open() }}
-                        <input type="hidden" name="type" value="order" />
                         <div class="row g-3">
                             <div class="col-lg-4 col-md-6">
                                 <label for="SquareInput" class="form-label req">Order ID</label>

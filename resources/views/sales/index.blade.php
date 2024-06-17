@@ -31,8 +31,7 @@
                         <h6 class="card-title mb-0">Fetch Order</h6>
                     </div>
                     <div class="card-body">
-                        {{ html()->form('POST', route('order.fetch'))->acceptsFiles()->open() }}
-                        <input type="hidden" name="type" value="sales" />
+                        {{ html()->form('POST', route('sales.create'))->acceptsFiles()->open() }}
                         <div class="row g-3">
                             <div class="col-md-6">
                                 <label for="SquareInput" class="form-label req">Order ID</label>
