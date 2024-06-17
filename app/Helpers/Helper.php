@@ -9,7 +9,7 @@ function apiSecret()
 
 function roles()
 {
-    return array('admin' => 'Admin', 'staff' => 'Staff', 'manager' => 'Manager');
+    return array('admin' => 'Admin', 'staff' => 'Staff', 'manager' => 'Manager', 'optician' => 'Optician');
 }
 
 function productcode($category)

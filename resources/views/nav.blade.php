@@ -83,6 +83,28 @@
                 }}
              </li>
 
+             <li class="collapsed">
+                 <a class="m-link {{ in_array(Route::currentRouteName(), ['supplier.register', 'supplier.create']) ? 'active' : '' }}" data-bs-toggle="collapse" data-bs-target="#menu-supplier" href="#"><i class="fa fa-tags"></i> <span>Supplier</span> <span class="arrow fa fa-angle-right ms-auto text-end"></span></a>
+
+                 <!-- Menu: Sub menu ul -->
+                 {{
+                    Menu::new()->addClass('sub-menu collapse')->setAttribute('id', 'menu-supplier')
+                    ->link(route('supplier.register'), 'Supplier Register')->addItemClass('ms-link')
+                    ->link(route('supplier.create'), 'Create Supplier')->addItemClass('ms-link')
+                }}
+             </li>
+
+             <li class="collapsed">
+                 <a class="m-link {{ in_array(Route::currentRouteName(), ['purchase.register', 'purchase.create']) ? 'active' : '' }}" data-bs-toggle="collapse" data-bs-target="#menu-purchase" href="#"><i class="fa fa-shopping-cart"></i> <span>Purchase</span> <span class="arrow fa fa-angle-right ms-auto text-end"></span></a>
+
+                 <!-- Menu: Sub menu ul -->
+                 {{
+                    Menu::new()->addClass('sub-menu collapse')->setAttribute('id', 'menu-purchase')
+                    ->link(route('purchase.register'), 'Purchase Register')->addItemClass('ms-link')
+                    ->link(route('purchase.create'), 'Create Purchase')->addItemClass('ms-link')
+                }}
+             </li>
+
          </ul>
          <!-- Menu: menu collepce btn -->
          <button type="button" class="btn btn-link text-primary sidebar-mini-btn">

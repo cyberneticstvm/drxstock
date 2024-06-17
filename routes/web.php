@@ -7,6 +7,8 @@ use App\Http\Controllers\CoatingController;
 use App\Http\Controllers\HelperController;
 use App\Http\Controllers\MaterialController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\PurchaseController;
+use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\TypeController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -17,7 +19,7 @@ Route::prefix('/')->controller(HelperController::class)->group(function () {
     Route::post('/', 'signin')->name('signin');
 });
 
-Route::middleware(['web', 'auth'])->group(function () {
+Route::middleware(['web', 'auth', 'role: admin'])->group(function () {
 
     Route::prefix('/ajax')->controller(AjaxController::class)->group(function () {
         Route::get('/change/type', 'changeType')->name('ajax.change.type');
@@ -91,5 +93,23 @@ Route::middleware(['web', 'auth'])->group(function () {
 
         Route::get('/track', 'track')->name('product.track');
         Route::post('/track', 'trackFetch')->name('product.track.fetch');
+    });
+
+    Route::prefix('/supplier')->controller(SupplierController::class)->group(function () {
+        Route::get('/', 'index')->name('supplier.register');
+        Route::get('/create', 'create')->name('supplier.create');
+        Route::post('/save', 'store')->name('supplier.save');
+        Route::get('/edit/{id}', 'edit')->name('supplier.edit');
+        Route::post('/update/{id}', 'update')->name('supplier.update');
+        Route::get('/delete/{id}', 'destroy')->name('supplier.delete');
+    });
+
+    Route::prefix('/purchase')->controller(PurchaseController::class)->group(function () {
+        Route::get('/', 'index')->name('purchase.register');
+        Route::get('/create', 'create')->name('purchase.create');
+        Route::post('/save', 'store')->name('purchase.save');
+        Route::get('/edit/{id}', 'edit')->name('purchase.edit');
+        Route::post('/update/{id}', 'update')->name('purchase.update');
+        Route::get('/delete/{id}', 'destroy')->name('purchase.delete');
     });
 });
