@@ -105,6 +105,17 @@
                 }}
              </li>
 
+             <li class="collapsed">
+                 <a class="m-link {{ in_array(Route::currentRouteName(), ['sales.register', 'sales.create']) ? 'active' : '' }}" data-bs-toggle="collapse" data-bs-target="#menu-sales" href="#"><i class="fa fa-usd"></i> <span>Sales</span> <span class="arrow fa fa-angle-right ms-auto text-end"></span></a>
+
+                 <!-- Menu: Sub menu ul -->
+                 {{
+                    Menu::new()->addClass('sub-menu collapse')->setAttribute('id', 'menu-sales')
+                    ->link(route('sales.register'), 'Sales Register')->addItemClass('ms-link')
+                    ->link(route('sales.create'), 'Create Sales')->addItemClass('ms-link')
+                }}
+             </li>
+
          </ul>
          <!-- Menu: menu collepce btn -->
          <button type="button" class="btn btn-link text-primary sidebar-mini-btn">

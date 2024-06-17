@@ -113,4 +113,13 @@ Route::middleware(['web', 'auth', 'role: admin'])->group(function () {
         Route::post('/update/{id}', 'update')->name('purchase.update');
         Route::get('/delete/{id}', 'destroy')->name('purchase.delete');
     });
+
+    Route::prefix('/sales')->controller(PurchaseController::class)->group(function () {
+        Route::get('/', 'index')->name('sales.register');
+        Route::get('/create', 'create')->name('sales.create');
+        Route::post('/save', 'store')->name('sales.save');
+        Route::get('/edit/{id}', 'edit')->name('sales.edit');
+        Route::post('/update/{id}', 'update')->name('sales.update');
+        Route::get('/delete/{id}', 'destroy')->name('sales.delete');
+    });
 });

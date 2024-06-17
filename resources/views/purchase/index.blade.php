@@ -53,8 +53,8 @@
                                     <td>{{ $item->pid() }}</td>
                                     <td>{{ $item->supplier->name }}</td>
                                     <td>{{ $item->supplier_invoice }}</td>
-                                    <td>{{ $item->order_date->format('d.M.Y') }}</td>
-                                    <td>{{ $item->delivery_date->format('d.M.Y') }}</td>
+                                    <td>{{ $item->order_date?->format('d.M.Y') }}</td>
+                                    <td>{{ $item->delivery_date?->format('d.M.Y') }}</td>
                                     <td>{{ $item->purchase_note }}</td>
                                     <td>{!! $item->status() !!}</td>
                                     <td class="text-center"><a href="{{ route('purchase.edit', encrypt($item->id)) }}"><i class="fa fa-magic text-warning"></i></a></td>
