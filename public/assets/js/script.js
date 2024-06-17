@@ -30,4 +30,32 @@ $(function () {
             }
         })
     });
+
+    $(document).on("click", ".dltRow", function () {
+        $(this).parent().parent().remove();
+    });
+
+    $(document).on("click", ".addNewProduct", function(){
+        $.ajax({
+            type: 'GET',
+            url: '/ajax/get/products',
+            dataType: 'json',
+            success: function (res) {    
+                $(".pdctPurRow").append(`<tr><td><select class="form-control form-control-lg select2 selProduct" name="product_id[]" required><option></option></select></td><td><input type="number" name='qty[]' class="form-control form-control-lg text-center" placeholder="0" min='1' step="1" required /></td><td><input type="number" name='unit_purchase_price[]' class="form-control form-control-lg text-end" placeholder="0" min='1' step="1" required /></td><td><input type="number" name='unit_selling_price[]' class="form-control form-control-lg text-end" placeholder="0" min='1' step="1" required /></td><td class="text-center"><a href="javascript:void(0)" class="dltRow"><i class="fa fa-trash text-danger"></i></a></td></tr>`);                    
+                
+                var xdata = $.map(res, function (obj) {
+                    obj.text = obj.name || obj.id;
+                    return obj;
+                });
+                //$('.selPdct').last().select2().empty();                      
+                $('.selProduct').last().select2({
+                    placeholder: 'Select',
+                    data: xdata
+                });
+            },
+            error: function (err) {
+                console.log(err)
+            }
+        })
+    })
 })

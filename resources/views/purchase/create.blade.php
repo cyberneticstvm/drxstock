@@ -63,7 +63,7 @@
                             <div class="col-6">
                                 <h6 class="card-title mb-0">Product Details</h6>
                             </div>
-                            <div class="col-6 text-end">Add New Product</div>
+                            <div class="col-6 text-end"><a href="javascript:void(0)" class="addNewProduct">Add New Product</a></div>
                         </div>
                     </div>
                     <div class="card-body">
@@ -79,10 +79,10 @@
                                             <th class="text-center">Remove</th>
                                         </tr>
                                     </thead>
-                                    <tbody>
+                                    <tbody class="pdctPurRow">
                                         <tr>
                                             <td>
-                                                {{ html()->select('product_id[]', $products, '')->class("form-control form-control-lg select2")->placeholder("Select") }}
+                                                {{ html()->select('product_id[]', $products, '')->class("form-control form-control-lg select2 selProduct")->placeholder("Select") }}
                                             </td>
                                             <td>
                                                 {{ html()->number('qty[]', '', 1, '', '1')->class("form-control form-control-lg text-center")->placeholder("0") }}
@@ -94,7 +94,7 @@
                                                 {{ html()->number('unit_selling_price[]', '', 0, '', 'any')->class("form-control form-control-lg text-end")->placeholder("0") }}
                                             </td>
                                             <td class="text-center">
-                                                <i class="fa fa-trash text-danger"></i>
+                                                <a href="javascript:void(0)" class="dltRow"><i class="fa fa-trash text-danger"></i></a>
                                             </td>
                                         </tr>
                                     </tbody>
