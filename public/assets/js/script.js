@@ -67,7 +67,6 @@ $(function () {
                 url: '/ajax/product/' + product + '/' + editQty,
                 dataType: 'json',
                 success: function (res) {
-                    console.log(res);
                     dis.parent().parent().find(".qtyAvailable").val(res ? res[0].balanceQty : 0);
                     dis.parent().parent().find(".qtyMax").attr("max", res ? res[0].balanceQty : 0);
                     dis.parent().parent().find(".qtyMax").val("1");                    
