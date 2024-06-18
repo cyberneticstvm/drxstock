@@ -23,6 +23,7 @@ Route::prefix('/')->controller(HelperController::class)->group(function () {
 Route::middleware(['web', 'auth', 'role: admin'])->group(function () {
 
     Route::prefix('/ajax')->controller(AjaxController::class)->group(function () {
+        Route::get('/product/{product}/{editQty}', 'getStock')->name('ajax.get.stock');
         Route::get('/change/type', 'changeType')->name('ajax.change.type');
         Route::get('/get/products', 'getProducts')->name('ajax.get.products');
     });

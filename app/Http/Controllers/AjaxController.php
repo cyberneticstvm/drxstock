@@ -8,6 +8,12 @@ use Illuminate\Http\Request;
 
 class AjaxController extends Controller
 {
+    function getStock($product, $editQty)
+    {
+        $stock = getInventory($product, $editQty);
+        return response()->json($stock);
+    }
+
     function changeType(Request $request)
     {
         $type_id = $request->type_id;

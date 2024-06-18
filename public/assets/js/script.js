@@ -57,5 +57,24 @@ $(function () {
                 console.log(err)
             }
         })
-    })
+    });
+
+    $(document).on("change", ".selPdct", function () {
+        let dis = $(this); let product = dis.val(); let editQty = dis.data('qty');
+        if (product) {
+            $.ajax({
+                type: 'GET',
+                url: '/ajax/product/' + product + '/' + editQty,
+                dataType: 'json',
+                success: function (res) {
+                    dis.parent().parent().find(".qtyAvailable").val(res[0].balanceQty);
+                    dis.parent().parent().find(".qtyMax").attr("max", res[0].balanceQty);
+                    dis.parent().parent().find(".qtyMax").val("1");
+                },
+                error: function (err) {
+                    console.log(err);
+                }
+            });
+        }
+    });
 })

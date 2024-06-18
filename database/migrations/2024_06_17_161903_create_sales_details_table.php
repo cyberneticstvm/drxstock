@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('sales_details', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger("sales_id");
+            $table->string('eye', 15)->nullable();
             $table->unsignedBigInteger('product_id');
             $table->integer('qty')->default(0)->nullable();
             $table->decimal('price', 7, 2)->default(0)->nullable();
