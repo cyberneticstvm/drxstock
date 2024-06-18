@@ -70,7 +70,7 @@ $(function () {
                     dis.parent().parent().find(".qtyAvailable").val(res[0].balanceQty);
                     dis.parent().parent().find(".qtyMax").attr("max", res[0].balanceQty);
                     dis.parent().parent().find(".qtyMax").val("1");
-                    console.log(err);
+                    console.log(res);
                 },
                 error: function (err) {
                     console.log(err);
