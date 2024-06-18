@@ -131,7 +131,7 @@
     <!-- Jquery Page Js -->
     <script src="{{ asset('/assets/js/template.js') }}"></script>
     <!--<script src="{{ asset('/assets/js/page/index.js') }}"></script>-->
-    <script src="{{ asset('/assets/js/script.js?v=2') }}"></script>
+    <script src="{{ asset('/assets/js/script.js') }}"></script>
     @include("message")
 </body>
 
