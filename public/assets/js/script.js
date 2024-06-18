@@ -59,9 +59,8 @@ $(function () {
         })
     });
 
-    $(document).on("change", ".selPdct", function () {
-        let dis = $(this); let product = dis.val(); let editQty = dis.data('qty');
-        alert(product)
+    $(document).on("change", ".selPdct", function () {alert('dfs')
+        let dis = $(this); let product = dis.val(); let editQty = dis.data('qty');        
         if (product) {
             $.ajax({
                 type: 'GET',
