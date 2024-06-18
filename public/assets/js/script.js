@@ -59,7 +59,7 @@ $(function () {
         })
     });
 
-    $(document).on("change", ".selPdct", function () {alert('dfs')
+    $(document).on("change", ".selPdct", function () {
         let dis = $(this); let product = dis.val(); let editQty = dis.data('qty');        
         if (product) {
             $.ajax({
@@ -68,8 +68,8 @@ $(function () {
                 dataType: 'json',
                 success: function (res) {
                     console.log(res);
-                    dis.parent().parent().find(".qtyAvailable").val(res[0].balanceQty);
-                    dis.parent().parent().find(".qtyMax").attr("max", res[0].balanceQty);
+                    dis.parent().parent().find(".qtyAvailable").val(res[0].balanceQty ?? 0);
+                    dis.parent().parent().find(".qtyMax").attr("max", res[0].balanceQty ?? 0);
                     dis.parent().parent().find(".qtyMax").val("1");                    
                 },
                 error: function (err) {
