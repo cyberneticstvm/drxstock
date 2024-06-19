@@ -107,6 +107,7 @@
                                     <th>Coating</th>
                                     <th>Material</th>
                                     <th>[Eye &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp; Sph &nbsp;&nbsp;&nbsp;| Cyl | Axis | Add]</th>
+                                    <th class="text-center">Qty</th>
                                     <th>Shelf</th>
                                     <th>Box</th>
                                     <th>Status</th>
@@ -123,6 +124,7 @@
                                     <td>{{ $item->coating->name }}</td>
                                     <td>{{ $item->material->name }}</td>
                                     <td>{!! $item->power() !!}</td>
+                                    <td class="text-center">{{ getInventory($item->id, 0)->sum('balanceQty') }}</td>
                                     <td>{{ $item->shelf }}</td>
                                     <td>{{ $item->box }}</td>
                                     <td>{!! $item->status() !!}</td>
