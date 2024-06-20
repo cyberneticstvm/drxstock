@@ -62,7 +62,7 @@
                             </div>
                             <div class="col-lg-1">
                                 <label for="SquareInput" class="form-label">Cyl</label>
-                                {{ html()->select('cyl', $powers->where('name', 'cyl')->pluck('value', 'value')->toArray() + array('0.00' => '0.00'), old('cyl') ? old('cyl') : $inputs[4])->class("form-control form-control-lg select2")->placeholder("Select") }}
+                                {{ html()->select('cyl', $powers->where('name', 'cyl')->pluck('value', 'value'), old('cyl') ? old('cyl') : $inputs[4])->class("form-control form-control-lg select2")->placeholder("Select") }}
                             </div>
                             <div class="col-lg-1 divAxis">
                                 <label for="SquareInput" class="form-label">Axis</label>
