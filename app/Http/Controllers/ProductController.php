@@ -110,9 +110,9 @@ class ProductController extends Controller
             })->when($request->sph != null && $request->cyl == null, function ($q) use ($sph, $request) {
                 return $q->where('coating_id', $request->coating_id)->where('type_id', $request->type_id)->where('material_id', $request->material_id)->whereIn('sph', $sph)->whereNull('cyl');
             })->when($request->sph == null && $request->cyl != null, function ($q) use ($cyl, $request) {
-                return $q->where('coating_id', $request->coating_id)->where('type_id', $request->type_id)->where('material_id', $request->material_id)->whereIn('cyl', $cyl)->whereNull('sph')->orWhere('sph', '0.00');
+                return $q->where('coating_id', $request->coating_id)->where('type_id', $request->type_id)->where('material_id', $request->material_id)->whereIn('cyl', $cyl)->whereNull('sph');
             })->when($request->sph == null && $request->cyl == null, function ($q) use ($request) {
-                return $q->where('coating_id', $request->coating_id)->where('type_id', $request->type_id)->where('material_id', $request->material_id)->whereNull('sph')->orWhere('sph', '0.00')->whereNull('cyl')->orwhere('cyl', '0.00');
+                return $q->where('coating_id', $request->coating_id)->where('type_id', $request->type_id)->where('material_id', $request->material_id)->whereNull('sph')->whereNull('cyl');
             })->when($request->axis != null, function ($q) use ($axis, $request) {
                 return $q->where('coating_id', $request->coating_id)->where('type_id', $request->type_id)->where('material_id', $request->material_id)->whereIn('axis', $axis);
             })->when($request->eye, function ($q) use ($request) {
