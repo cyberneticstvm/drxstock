@@ -19,7 +19,7 @@ class SalesController extends Controller
 
     public function __construct()
     {
-        $this->products = Product::selectRaw("CONCAT_WS(' ', code, name, CONCAT(sph,cyl,axis,`add`)) AS name, id")->pluck('name', 'id');
+        $this->products = Product::selectRaw("CONCAT_WS(' ', code, name, CONCAT(sph, ' ', cyl, ' ', axis, ' ', `add`)) AS name, id")->pluck('name', 'id');
     }
 
     public function index()
