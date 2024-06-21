@@ -15,7 +15,7 @@ class ProductExport implements FromCollection, WithHeadings, WithStyles
      */
     public function collection()
     {
-        $products = Product::orderBy('name')->get();
+        $products = Product::orderBy('code', 'ASC')->get();
         return $products->map(function ($data, $key) {
             return [
                 '2' => $data->name,
@@ -24,10 +24,10 @@ class ProductExport implements FromCollection, WithHeadings, WithStyles
                 '5' => $data->material->name,
                 '6' => $data->coating->name,
                 '7' => $data->eye,
-                '8' => strval($data->sph),
-                '9' => strval($data->cyl),
+                '8' => strval($data->sph) . ' ',
+                '9' => strval($data->cyl) . ' ',
                 '10' => $data->axis,
-                '11' => strval($data->add),
+                '11' => strval($data->add) . ' ',
                 '12' => $data->shelf,
                 '13' => $data->box,
                 '14' => $data->reorder_qty,

@@ -98,7 +98,8 @@ Route::middleware(['web', 'auth', 'role: admin'])->group(function () {
         Route::get('/track', 'track')->name('product.track');
         Route::post('/track', 'trackFetch')->name('product.track.fetch');
 
-        Route::get('/product/export', 'exportProduct')->name('product.export');
+        Route::get('/product/export/excel', 'exportProductExcel')->name('product.export.excel');
+        Route::get('/product/export/pdf', 'exportProductPdf')->name('product.export.pdf');
     });
 
     Route::prefix('/supplier')->controller(SupplierController::class)->group(function () {
