@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Power;
 use App\Models\Product;
 use App\Models\Type;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class AjaxController extends Controller
 {
@@ -23,7 +25,22 @@ class AjaxController extends Controller
 
     function getProducts()
     {
-        $products = Product::selectRaw("CAST(CONCAT_WS(' ', code, name, CONCAT(sph,cyl,axis,`add`)) AS CHAR) AS name, id")->get();
+        //Product::selectRaw("CAST(CONCAT_WS(' ', code, name, CONCAT(sph,cyl,axis,`add`)) AS CHAR) AS name, id")->get();
+        $products = Product::leftJoin('coatings AS c', 'products.coating_id', 'c.id')->selectRaw("CONCAT_WS(' ', products.code, products.name, c.name, CONCAT(products.sph, ' ', products.cyl, ' ', products.axis, ' ', products.add)) AS name, products.id AS id")->get();
         return response()->json($products);
+    }
+
+    function getPower($type)
+    {
+        $minmax = collect(DB::select("SELECT MAX(CAST(sph AS DECIMAL(4, 2))) AS sphmax, MIN(CAST(sph AS DECIMAL(4, 2))) AS sphmin, MAX(CAST(cyl AS DECIMAL(4, 2))) AS cylmax, MIN(CAST(cyl AS DECIMAL(4, 2))) AS cylmin FROM `products` WHERE coating_id = 3;"))->first();
+
+        $sph = Power::where('name', 'sph')->whereRaw("CAST(value AS DECIMAL(4,2)) BETWEEN " . $minmax->sphmin . " AND " . $minmax->sphmax)->selectRaw("value AS name, id")->get();
+        $cyl = Power::where('name', 'cyl')->whereRaw("CAST(value AS DECIMAL(4,2)) BETWEEN " . $minmax->cylmin . " AND " . $minmax->cylmax)->selectRaw("value AS name, id")->get();
+
+        return response()->json([
+            'sph' => $sph,
+            'cyl' => $cyl,
+            'minmax' => $minmax,
+        ]);
     }
 }

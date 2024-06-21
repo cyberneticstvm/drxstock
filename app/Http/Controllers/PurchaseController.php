@@ -21,7 +21,7 @@ class PurchaseController extends Controller
     public function __construct()
     {
         $this->suppliers = Supplier::pluck('name', 'id');
-        $this->products = Product::selectRaw("CONCAT_WS(' ', code, name, CONCAT(sph, ' ', cyl, ' ', axis, ' ', `add`)) AS name, id")->pluck('name', 'id');
+        $this->products = Product::leftJoin('coatings AS c', 'products.coating_id', 'c.id')->selectRaw("CONCAT_WS(' ', products.code, products.name, c.name, CONCAT(products.sph, ' ', products.cyl, ' ', products.axis, ' ', products.add)) AS name, products.id AS id")->pluck('name', 'id');
     }
 
     public function index()

@@ -35,7 +35,7 @@
                         <div class="row g-3">
                             <div class="col-lg-2">
                                 <label for="SquareInput" class="form-label req">Type</label>
-                                {{ html()->select('type_id', $types->pluck('name', 'id'),  old('type_id') ? old('type_id') : $inputs[0])->class("form-control form-control-lg select2 ptype")->placeholder("Select") }}
+                                {{ html()->select('type_id', $types->pluck('name', 'id'),  old('type_id') ? old('type_id') : $inputs[0])->class("form-control form-control-lg select2 ptype pType1")->placeholder("Select") }}
                                 @error('type_id')
                                 <small class="text-danger">{{ $errors->first('type_id') }}</small>
                                 @enderror
@@ -58,11 +58,11 @@
                         <div class="row g-3 mt-1">
                             <div class="col-lg-1">
                                 <label for="SquareInput" class="form-label">Sph</label>
-                                {{ html()->select('sph', $powers->where('name', 'sph')->pluck('value', 'value'), old('sph') ? old('sph') : $inputs[3])->class("form-control form-control-lg select2")->placeholder("Select") }}
+                                {{ html()->select('sph', '', old('sph') ? old('sph') : $inputs[3])->class("form-control form-control-lg select2 sph")->placeholder("Select") }}
                             </div>
                             <div class="col-lg-1">
                                 <label for="SquareInput" class="form-label">Cyl</label>
-                                {{ html()->select('cyl', $powers->where('name', 'cyl')->pluck('value', 'value'), old('cyl') ? old('cyl') : $inputs[4])->class("form-control form-control-lg select2")->placeholder("Select") }}
+                                {{ html()->select('cyl', '', old('cyl') ? old('cyl') : $inputs[4])->class("form-control form-control-lg select2 cyl")->placeholder("Select") }}
                             </div>
                             <div class="col-lg-1 divAxis">
                                 <label for="SquareInput" class="form-label">Axis</label>

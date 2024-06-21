@@ -26,6 +26,7 @@ Route::middleware(['web', 'auth', 'role: admin'])->group(function () {
         Route::get('/product/{product}/{editQty}', 'getStock')->name('ajax.get.stock');
         Route::get('/change/type', 'changeType')->name('ajax.change.type');
         Route::get('/get/products', 'getProducts')->name('ajax.get.products');
+        Route::get('/get/power/{type}', 'getPower')->name('ajax.get.power');
     });
 
     Route::prefix('/order')->controller(ApiController::class)->group(function () {

@@ -77,4 +77,36 @@ $(function () {
             });
         }
     });
+
+    $(document).on("change", ".pType1", function () {
+        let dis = $(this);       
+        let type = dis.val();
+        $.ajax({
+            type: 'GET',
+            url: '/ajax/get/power/' + type,
+            dataType: 'json',
+            success: function (res) {
+                var xdata = $.map(res.sph, function (obj) {
+                    obj.text = obj.name || obj.id;
+                    return obj;
+                });                      
+                $('.sph').select2({
+                    placeholder: 'Select',
+                    data: xdata
+                });
+                var xdata1 = $.map(res.cyl, function (obj) {
+                    obj.text = obj.name || obj.id;
+                    return obj;
+                });                      
+                $('.cyl').select2({
+                    placeholder: 'Select',
+                    data: xdata1
+                });  
+                console.log(res.minmax);
+            },
+            error: function (err) {
+                console.log(err);
+            }
+        });
+    });
 })
