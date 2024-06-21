@@ -26,6 +26,7 @@ return new class extends Migration
             $table->string('add', 7)->nullable();
             $table->string('shelf', 150)->nullable();
             $table->string('box', 150)->nullable();
+            $table->integer('reorder_qty')->default(0);
             $table->unsignedBigInteger('created_by');
             $table->unsignedBigInteger('updated_by');
             $table->timestamps();

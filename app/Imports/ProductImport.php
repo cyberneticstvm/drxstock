@@ -49,6 +49,7 @@ class ProductImport implements ToModel, WithStartRow
                 'add' => strval($row[7]),
                 'shelf' => strval($row[8]),
                 'box' => strval($row[9]),
+                'reorder_qty' => $row[10],
                 'created_by' => $this->request->user()->id,
                 'updated_by' => $this->request->user()->id,
                 'created_at' => Carbon::now(),
