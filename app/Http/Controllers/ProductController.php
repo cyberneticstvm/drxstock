@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\ProductExport;
 use App\Imports\ProductImport;
 use App\Models\Category;
 use App\Models\Coating;
@@ -151,5 +152,10 @@ class ProductController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+
+    public function exportProduct()
+    {
+        return Excel::download(new ProductExport(), 'products.xlsx');
     }
 }

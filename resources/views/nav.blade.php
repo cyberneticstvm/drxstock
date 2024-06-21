@@ -102,6 +102,7 @@
                     Menu::new()->addClass('sub-menu collapse')->setAttribute('id', 'menu-purchase')
                     ->link(route('purchase.register'), 'Purchase Register')->addItemClass('ms-link')
                     ->link(route('purchase.create'), 'Create Purchase')->addItemClass('ms-link')
+                    ->link(route('purchase.import'), 'Import Purchase')->addItemClass('ms-link')
                 }}
              </li>
 

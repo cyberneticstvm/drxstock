@@ -97,6 +97,8 @@ Route::middleware(['web', 'auth', 'role: admin'])->group(function () {
 
         Route::get('/track', 'track')->name('product.track');
         Route::post('/track', 'trackFetch')->name('product.track.fetch');
+
+        Route::get('/product/export', 'exportProduct')->name('product.export');
     });
 
     Route::prefix('/supplier')->controller(SupplierController::class)->group(function () {
@@ -115,6 +117,9 @@ Route::middleware(['web', 'auth', 'role: admin'])->group(function () {
         Route::get('/edit/{id}', 'edit')->name('purchase.edit');
         Route::post('/update/{id}', 'update')->name('purchase.update');
         Route::get('/delete/{id}', 'destroy')->name('purchase.delete');
+
+        Route::get('/import', 'purchaseImport')->name('purchase.import');
+        Route::post('/import', 'purchaseImportUpdate')->name('purchase.import.update');
     });
 
     Route::prefix('/sales')->controller(SalesController::class)->group(function () {

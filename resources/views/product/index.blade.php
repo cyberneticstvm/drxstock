@@ -28,7 +28,23 @@
             <div class="col-lg-12">
                 <div class="card bg-white">
                     <div class="card-header py-3 border-bottom-0">
-                        <h6 class="card-title mb-0">Product Register</h6>
+                        <div class="row">
+                            <div class="col-6">
+                                <h6 class="card-title mb-0">Product Register</h6>
+                            </div>
+                            <div class="col-6 text-end">
+                                <div class="btn-group">
+                                    <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">Export</button>
+                                    <ul class="dropdown-menu border-0 shadow">
+                                        <li><a class="dropdown-item text-dark" href="{{ route('product.export') }}"><i class="fa fa-file-excel-o text-primary me-3"></i>Excel</a></li>
+                                        <li>
+                                            <hr class="dropdown-divider">
+                                        </li>
+                                        <li><a class="dropdown-item text-dark" href="#"><i class="fa fa-file-pdf-o text-danger me-3"></i>PDF</a></li>
+                                    </ul>
+                                </div><!-- /btn-group -->
+                            </div>
+                        </div>
                     </div>
                     <div class="card-body table-responsive">
                         <table class="myDataTable table table-hover align-middle mb-0" style="width: 100%;">
