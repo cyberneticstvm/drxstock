@@ -44,6 +44,7 @@
                                     <th>Power</th>
                                     <th>Shelf</th>
                                     <th>Box</th>
+                                    <th>Re.Qty</th>
                                     <th>Status</th>
                                     <th class="text-center">Edit</th>
                                     <th class="text-center">Delete</th>
@@ -62,6 +63,7 @@
                                     <td>{!! $item->power() !!}</td>
                                     <td>{{ $item->shelf }}</td>
                                     <td>{{ $item->box }}</td>
+                                    <td>{{ $item->reorder_qty }}</td>
                                     <td>{!! $item->status() !!}</td>
                                     <td class="text-center"><a href="{{ route('product.edit', encrypt($item->id)) }}"><i class="fa fa-magic text-warning"></i></a></td>
                                     <td class="text-center"><a class="dlt" href="{{ route('product.delete', encrypt($item->id)) }}"><i class="fa fa-trash text-danger"></i></a></td>
