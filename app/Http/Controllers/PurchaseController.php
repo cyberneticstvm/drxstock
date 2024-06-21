@@ -167,25 +167,25 @@ class PurchaseController extends Controller
             'supplier_id' => 'required',
             'data_file' => 'required|mimes:xlsx',
         ]);
-        //try {
-        $purchase = Purchase::create([
-            'supplier_id' => $request->supplier_id,
-            'supplier_invoice' => $request->supplier_invoice,
-            'order_date' => $request->order_date,
-            'delivery_date' => $request->delivery_date,
-            'purchase_note' => $request->purchase_note,
-            'created_by' => $request->user()->id,
-            'updated_by' => $request->user()->id,
-        ]);
-        $import = new PurchaseImport($request, $purchase);
-        Excel::import($import, $request->file('data_file')->store('temp'));
-        if ($import->data) :
-            Session::put('failed_import_data', $import->data);
-            return redirect()->route('import.failed')->with("warning", "Some products weren't uploaded. Please check the excel file for more info.");
-        endif;
-        //} catch (Exception $e) {
-        //return back()->with("error", $e->getMessage());
-        //}
+        try {
+            $purchase = Purchase::create([
+                'supplier_id' => $request->supplier_id,
+                'supplier_invoice' => $request->supplier_invoice,
+                'order_date' => $request->order_date,
+                'delivery_date' => $request->delivery_date,
+                'purchase_note' => $request->purchase_note,
+                'created_by' => $request->user()->id,
+                'updated_by' => $request->user()->id,
+            ]);
+            $import = new PurchaseImport($request, $purchase);
+            Excel::import($import, $request->file('data_file')->store('temp'));
+            if ($import->data) :
+                Session::put('failed_import_data', $import->data);
+                return redirect()->route('import.failed')->with("warning", "Some products weren't uploaded. Please check the excel file for more info.");
+            endif;
+        } catch (Exception $e) {
+            return back()->with("error", $e->getMessage());
+        }
         return back()->with("success", "Products Uploaded Successfully");
     }
 }
