@@ -102,7 +102,7 @@ $(function () {
                     placeholder: 'Select',
                     data: xdata1
                 });  
-                console.log(res.minmax);
+                //console.log(res.minmax);
             },
             error: function (err) {
                 console.log(err);
