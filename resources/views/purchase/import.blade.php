@@ -9,7 +9,7 @@
                 <div class="d-flex justify-content-between align-items-center py-2">
                     <ol class="breadcrumb rounded-0 mb-0 ps-0 bg-transparent flex-grow-1">
                         <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Home</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Create Purchase</li>
+                        <li class="breadcrumb-item active" aria-current="page">Import Purchases</li>
                     </ol>
                     <div class="d-flex flex-wrap align-items-center">
                         <button class="btn btn-dark ms-1" type="button"><i class="fa fa-refresh"></i></button>
@@ -29,7 +29,7 @@
                 {{ html()->form('POST', route('purchase.import.update'))->acceptsFiles()->open() }}
                 <div class="card bg-white">
                     <div class="card-header py-3 border-bottom-0">
-                        <h6 class="card-title mb-0">Create Purchase</h6>
+                        <h6 class="card-title mb-0">Import Purchases</h6>
                     </div>
                     <div class="card-body">
                         <div class="row g-3">

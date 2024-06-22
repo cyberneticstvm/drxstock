@@ -135,7 +135,12 @@ class ProductController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $product = Product::findOrFail(decrypt($id));
+        $types = Type::all();
+        $coatings = Coating::pluck('name', 'id');
+        $materials = Material::pluck('name', 'id');
+        $powers = Power::all();
+        return view('product.edit', compact('types', 'coatings', 'materials', 'product', 'powers'));
     }
 
     /**
@@ -143,7 +148,22 @@ class ProductController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $request->validate([
+            'type_id' => 'required',
+            'material_id' => 'required',
+            'coating_id' => 'required',
+        ]);
+        try {
+            $type = Type::findOrFail($request->type_id);
+            $input = $request->all();
+            $input['updated_by'] = $request->user()->id;
+            $input['name'] = $type->name;
+            $input['category_id'] = $type->category_id;
+            Product::findOrFail($id)->update($input);
+        } catch (Exception $e) {
+            return back()->with("error", $e->getMessage())->withInput($request->all());
+        }
+        return redirect()->route("product.register")->with("success", "Product updated successfully");
     }
 
     /**
