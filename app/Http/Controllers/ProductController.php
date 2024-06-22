@@ -171,7 +171,8 @@ class ProductController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        Product::findOrFail(decrypt($id))->delete();
+        return redirect()->route("product.register")->with("success", "Product deleted successfully");
     }
 
     public function exportProductExcel()
