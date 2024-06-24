@@ -8,6 +8,7 @@ use App\Http\Controllers\HelperController;
 use App\Http\Controllers\MaterialController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\PurchaseController;
+use App\Http\Controllers\RoleController;
 use App\Http\Controllers\SalesController;
 use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\TypeController;
@@ -20,7 +21,7 @@ Route::prefix('/')->controller(HelperController::class)->group(function () {
     Route::post('/', 'signin')->name('signin');
 });
 
-Route::middleware(['web', 'auth', 'role: admin'])->group(function () {
+Route::middleware(['web', 'auth'])->group(function () {
 
     Route::prefix('/ajax')->controller(AjaxController::class)->group(function () {
         Route::get('/product/{product}/{editQty}', 'getStock')->name('ajax.get.stock');
@@ -49,6 +50,15 @@ Route::middleware(['web', 'auth', 'role: admin'])->group(function () {
         Route::get('/edit/{id}', 'edit')->name('user.edit');
         Route::post('/edit/{id}', 'update')->name('user.update');
         Route::get('/delete/{id}', 'destroy')->name('user.delete');
+    });
+
+    Route::prefix('/role')->controller(RoleController::class)->group(function () {
+        Route::get('/', 'index')->name('role.register');
+        Route::get('/create', 'create')->name('role.create');
+        Route::post('/create', 'store')->name('role.save');
+        Route::get('/edit/{id}', 'edit')->name('role.edit');
+        Route::post('/edit/{id}', 'update')->name('role.update');
+        Route::get('/delete/{id}', 'destroy')->name('role.delete');
     });
 
     Route::prefix('/category')->controller(CategoryController::class)->group(function () {

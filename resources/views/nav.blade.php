@@ -27,6 +27,19 @@
                 }}
 
              </li>
+
+             <li class="collapsed">
+                 <a class="m-link {{ in_array(Route::currentRouteName(), ['role.register', 'role.create', 'role.edit']) ? 'active' : '' }}" data-bs-toggle="collapse" data-bs-target="#menu-role" href="#"><i class="fa fa-user"></i> <span>Role</span> <span class="arrow fa fa-angle-right ms-auto text-end"></span></a>
+
+                 <!-- Menu: Sub menu ul -->
+                 {{
+                    Menu::new()->addClass('sub-menu collapse')->setAttribute('id', 'menu-role')
+                    ->link(route('role.register'), 'Role Register')->addItemClass('ms-link')
+                    ->link(route('role.create'), 'Create Role')->addItemClass('ms-link')
+                }}
+
+             </li>
+
              <li class="collapsed">
                  <a class="m-link {{ in_array(Route::currentRouteName(), ['category.register', 'category.create']) ? 'active' : '' }}" data-bs-toggle="collapse" data-bs-target="#menu-category" href="#"><i class="fa fa-bars"></i> <span>Category</span> <span class="arrow fa fa-angle-right ms-auto text-end"></span></a>
 

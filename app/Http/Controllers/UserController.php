@@ -5,13 +5,29 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Spatie\Permission\Models\Role;
+use Illuminate\Routing\Controllers\HasMiddleware;
+use Illuminate\Routing\Controllers\Middleware;
 
-class UserController extends Controller
+class UserController extends Controller implements HasMiddleware
 {
     /**
      * Display a listing of the resource.
      */
+
+    public static function middleware(): array
+    {
+        return [
+            new Middleware(\Spatie\Permission\Middleware\PermissionMiddleware::using('user-list'), only: ['index']),
+            new Middleware(\Spatie\Permission\Middleware\PermissionMiddleware::using('user-create'), only: ['create', 'store']),
+            new Middleware(\Spatie\Permission\Middleware\PermissionMiddleware::using('user-edit'), only: ['edit', 'update']),
+            new Middleware(\Spatie\Permission\Middleware\PermissionMiddleware::using('user-delete'), only: ['destroy']),
+        ];
+    }
+
     public function index()
     {
         $users = User::withTrashed()->get();
@@ -23,7 +39,8 @@ class UserController extends Controller
      */
     public function create()
     {
-        return view('user.create');
+        $roles = Role::pluck('name', 'name')->all();
+        return view('user.create', compact('roles'));
     }
 
     /**
@@ -36,12 +53,13 @@ class UserController extends Controller
             'username' => 'required|unique:users,username',
             'email' => 'required|unique:users,email',
             'password' => 'required|min:6',
-            'role' => 'required',
+            'roles' => 'required',
         ]);
         try {
             $input = $request->all();
             $input['password'] = Hash::make($request->password);
-            User::create($input);
+            $user = User::create($input);
+            $user->assignRole($request->input('roles'));
         } catch (Exception $e) {
             return redirect()->back()->with("error", $e->getMessage())->withInput($request->all());
         }
@@ -62,7 +80,9 @@ class UserController extends Controller
     public function edit(User $user, string $id)
     {
         $user = User::findOrFail(decrypt($id));
-        return view('user.edit', compact('user'));
+        $roles = Role::pluck('name', 'name')->all();
+        $userRole = $user->roles->pluck('name', 'name')->all();
+        return view('user.edit', compact('user', 'roles', 'userRole'));
     }
 
     /**
@@ -75,7 +95,7 @@ class UserController extends Controller
             'name' => 'required',
             'username' => 'required|unique:users,username,' . $id,
             'email' => 'required|unique:users,email,' . $id,
-            'role' => 'required',
+            'roles' => 'required',
         ]);
         try {
             $user = User::findOrFail($id);
@@ -83,9 +103,11 @@ class UserController extends Controller
             if ($request->password) :
                 $input['password'] = Hash::make($request->password);
             else :
-                $input['password'] = $user->getOriginal('password');
+                $input = Arr::except($input, array('password'));
             endif;
             $user->update($input);
+            DB::table('model_has_roles')->where('model_id', $id)->delete();
+            $user->assignRole($request->input('roles'));
         } catch (Exception $e) {
             return redirect()->back()->with("error", $e->getMessage())->withInput($request->all());
         }

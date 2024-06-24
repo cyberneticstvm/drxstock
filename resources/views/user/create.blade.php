@@ -62,10 +62,10 @@
                                 @enderror
                             </div>
                             <div class="col-lg-3 col-md-6">
-                                <label for="SquareInput" class="form-label req">Role</label>
-                                {{ html()->select("role", roles(), old('role'))->class("form-control form-control-lg select2")->placeholder("Select") }}
-                                @error('role')
-                                <small class="text-danger">{{ $errors->first('role') }}</small>
+                                <label class="form-label req" for="role">Role</label>
+                                {{ html()->select($name = 'roles', $value = $roles, NULL)->class('form-control select2')->placeholder('Select Role') }}
+                                @error('roles')
+                                <small class="text-danger">{{ $errors->first('roles') }}</small>
                                 @enderror
                             </div>
                         </div>
