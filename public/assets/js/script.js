@@ -88,6 +88,7 @@ $(function () {
             success: function (res) {
                 var xdata = $.map(res.sph, function (obj) {
                     obj.text = obj.name || obj.id;
+                    obj.id = obj.name
                     return obj;
                 });                      
                 $('.sph').select2({
@@ -96,13 +97,14 @@ $(function () {
                 });
                 var xdata1 = $.map(res.cyl, function (obj) {
                     obj.text = obj.name || obj.id;
+                    obj.id = obj.name
                     return obj;
                 });                      
                 $('.cyl').select2({
                     placeholder: 'Select',
                     data: xdata1
                 });  
-                //console.log(res.minmax);
+                console.log(res);
             },
             error: function (err) {
                 console.log(err);

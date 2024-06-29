@@ -119,10 +119,10 @@
                                     <td>{{ $key + 1 }}</td>
                                     <td>{{ $item->name }}</td>
                                     <td>{{ $item->code }}</td>
-                                    <td>{{ $item->category->name }}</td>
-                                    <td>{{ $item->type->name }}</td>
-                                    <td>{{ $item->coating->name }}</td>
-                                    <td>{{ $item->material->name }}</td>
+                                    <td>{{ $item->category?->name }}</td>
+                                    <td>{{ $item->type?->name }}</td>
+                                    <td>{{ $item->coating?->name }}</td>
+                                    <td>{{ $item->material?->name }}</td>
                                     <td>{!! $item->power() !!}</td>
                                     <td class="text-center">{{ getInventory($item->id, 0)->sum('balanceQty') }}</td>
                                     <td>{{ $item->shelf }}</td>
