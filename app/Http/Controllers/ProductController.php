@@ -27,7 +27,7 @@ class ProductController extends Controller implements HasMiddleware
     {
         return [
             new Middleware(\Spatie\Permission\Middleware\PermissionMiddleware::using('product-list'), only: ['index']),
-            new Middleware(\Spatie\Permission\Middleware\PermissionMiddleware::using('product-create'), only: ['create', 'store']),
+            new Middleware(\Spatie\Permission\Middleware\PermissionMiddleware::using('product-create'), only: ['create', 'store', 'new', 'save']),
             new Middleware(\Spatie\Permission\Middleware\PermissionMiddleware::using('product-edit'), only: ['edit', 'update']),
             new Middleware(\Spatie\Permission\Middleware\PermissionMiddleware::using('product-delete'), only: ['destroy']),
             new Middleware(\Spatie\Permission\Middleware\PermissionMiddleware::using('product-track'), only: ['track', 'trackFetch']),
@@ -68,6 +68,37 @@ class ProductController extends Controller implements HasMiddleware
             return back()->with("error", $e->getMessage());
         }
         return back()->with("success", "Products Uploaded Successfully");
+    }
+
+    public function new()
+    {
+        $types = Type::all();
+        $coatings = Coating::pluck('name', 'id');
+        $materials = Material::pluck('name', 'id');
+        $powers = Power::all();
+        return view('product.new', compact('types', 'coatings', 'materials', 'powers'));
+    }
+
+    public function save(Request $request)
+    {
+        $request->validate([
+            'type_id' => 'required',
+            'material_id' => 'required',
+            'coating_id' => 'required',
+        ]);
+        try {
+            $type = Type::findOrFail($request->type_id);
+            $input = $request->all();
+            $input['updated_by'] = $request->user()->id;
+            $input['created_by'] = $request->user()->id;
+            $input['name'] = $type->name;
+            $input['category_id'] = $type->category_id;
+            $input['code'] = productcode('Lens');
+            Product::create($input);
+        } catch (Exception $e) {
+            return back()->with("error", $e->getMessage())->withInput($request->all());
+        }
+        return redirect()->route("product.register")->with("success", "Product created successfully");
     }
 
     /**

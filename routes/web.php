@@ -105,6 +105,9 @@ Route::middleware(['web', 'auth'])->group(function () {
         Route::post('/edit/{id}', 'update')->name('product.update');
         Route::get('/delete/{id}', 'destroy')->name('product.delete');
 
+        Route::get('/new', 'new')->name('product.new');
+        Route::post('/new', 'save')->name('product.store');
+
         Route::get('/track', 'track')->name('product.track');
         Route::post('/track', 'trackFetch')->name('product.track.fetch');
 

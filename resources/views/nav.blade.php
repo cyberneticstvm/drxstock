@@ -91,7 +91,8 @@
                  {{
                     Menu::new()->addClass('sub-menu collapse')->setAttribute('id', 'menu-product')
                     ->link(route('product.register'), 'Product Register')->addItemClass('ms-link')
-                    ->link(route('product.create'), 'Create Product')->addItemClass('ms-link')
+                    ->link(route('product.new'), 'create Product')->addItemClass('ms-link')
+                    ->link(route('product.create'), 'Import Product')->addItemClass('ms-link')
                     ->link(route('product.track'), 'Track Product')->addItemClass('ms-link')
                 }}
              </li>
