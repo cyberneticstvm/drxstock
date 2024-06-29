@@ -37,7 +37,7 @@ class ProductController extends Controller implements HasMiddleware
 
     public function index()
     {
-        $products = Product::withTrashed()->latest()->get();
+        $products = Product::withTrashed()->orderBy('type_id')->get();
         return view('product.index', compact('products'));
     }
 
