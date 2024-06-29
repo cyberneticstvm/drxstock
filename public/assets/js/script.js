@@ -86,13 +86,14 @@ $(function () {
             url: '/ajax/get/power/' + type,
             dataType: 'json',
             success: function (res) {
+                $('.sph, .cyl').empty()
                 var xdata = $.map(res.sph, function (obj) {
                     obj.text = obj.name || obj.id;
                     obj.id = obj.name
                     return obj;
                 });                      
                 $('.sph').select2({
-                    placeholder: 'Select',
+                    //placeholder: 'Select',
                     data: xdata
                 });
                 var xdata1 = $.map(res.cyl, function (obj) {
@@ -101,7 +102,7 @@ $(function () {
                     return obj;
                 });                      
                 $('.cyl').select2({
-                    placeholder: 'Select',
+                    //placeholder: 'Select',
                     data: xdata1
                 });  
                 console.log(res);
