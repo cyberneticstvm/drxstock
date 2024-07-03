@@ -92,9 +92,9 @@ $(function () {
                     obj.id = obj.name
                     return obj;
                 });                   
-                $('.sph').select2({
+                $('.sph').prepend('<option selected=""></option>').select2({
                     placeholder: 'Select',
-                    allowClear: true,
+                    //allowClear: true,
                     data: xdata
                 });
                 var xdata1 = $.map(res.cyl, function (obj) {
@@ -102,9 +102,9 @@ $(function () {
                     obj.id = obj.name
                     return obj;
                 });                      
-                $('.cyl').select2({
+                $('.cyl').prepend('<option selected=""></option>').select2({
                     placeholder: 'Select',
-                    allowClear: true,
+                    //allowClear: true,
                     data: xdata1
                 });  
                 console.log(res);
