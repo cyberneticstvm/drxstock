@@ -113,7 +113,7 @@
                                                 {{ html()->text('eye[]', strtoupper($item->eye))->class("form-control form-control-lg text-center")->attribute('readonly')->placeholder("0") }}
                                             </td>
                                             <td>
-                                                {{ html()->select('product_id[]', $products, '')->class("form-control form-control-lg select2 selPdct")->attribute('data-qty', 0)->attribute('id', $item->id)->placeholder("Select")->required() }}
+                                                {{ html()->select('product_id[]', $products, '')->class("form-control form-control-lg select2 selPdct")->attribute('data-qty', 0)->attribute('id', $item->name)->placeholder("Select")->required() }}
                                             </td>
                                             <td>
                                                 {{ html()->number('available_qty[]', '', 1, '', '1')->class("form-control form-control-lg qtyAvailable text-center")->placeholder("0")->disabled() }}
