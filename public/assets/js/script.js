@@ -91,9 +91,10 @@ $(function () {
                     obj.text = obj.name || obj.id;
                     obj.id = obj.name
                     return obj;
-                });                      
+                });                   
                 $('.sph').select2({
-                    //placeholder: 'Select',
+                    placeholder: 'Select',
+                    allowClear: true,
                     data: xdata
                 });
                 var xdata1 = $.map(res.cyl, function (obj) {
@@ -102,7 +103,8 @@ $(function () {
                     return obj;
                 });                      
                 $('.cyl').select2({
-                    //placeholder: 'Select',
+                    placeholder: 'Select',
+                    allowClear: true,
                     data: xdata1
                 });  
                 console.log(res);

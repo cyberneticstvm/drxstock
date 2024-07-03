@@ -33,7 +33,6 @@ class AjaxController extends Controller
     function getPower($type)
     {
         $minmax = collect(DB::select("SELECT IFNULL(MAX(CAST(sph AS DECIMAL(4, 2))), 0) AS sphmax, IFNULL(MIN(CAST(sph AS DECIMAL(4, 2))), 0) AS sphmin, IFNULL(MAX(CAST(cyl AS DECIMAL(4, 2))), 0) AS cylmax, IFNULL(MIN(CAST(cyl AS DECIMAL(4, 2))), 0) AS cylmin FROM `products` WHERE type_id = ?", [$type]))->first();
-
         $sph = Power::where('name', 'sph')->whereRaw("CAST(value AS DECIMAL(4,2)) BETWEEN " . $minmax->sphmin . " AND " . $minmax->sphmax)->selectRaw("value AS name, value AS id")->get();
         $cyl = Power::where('name', 'cyl')->whereRaw("CAST(value AS DECIMAL(4,2)) BETWEEN " . $minmax->cylmin . " AND " . $minmax->cylmax)->selectRaw("value AS name, value AS id")->get();
 
