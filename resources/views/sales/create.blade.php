@@ -59,6 +59,7 @@
                                             <th>SL No</th>
                                             <th>Product</th>
                                             <th>Qty</th>
+                                            <th>EYE</th>
                                             <th>SPH</th>
                                             <th>CYL</th>
                                             <th>AXIS</th>
@@ -72,6 +73,7 @@
                                             <td>{{ $key + 1 }}</td>
                                             <td>{{ $item->name }}</td>
                                             <td>{{ $item->qty }}</td>
+                                            <td>{{ strtoupper($item->eye) }}</td>
                                             <td>{{ $item->sph }}</td>
                                             <td>{{ $item->cyl }}</td>
                                             <td>{{ $item->axis }}</td>
