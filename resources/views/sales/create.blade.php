@@ -31,23 +31,58 @@
                         <h6 class="card-title mb-0">Create Sales</h6>
                     </div>
                     <div class="card-body">
-                        <div class="table-responsive">
-                            <table class="table table-sm table-bordered mb-0">
-                                <tbody>
-                                    <tr>
-                                        <th scope="row">Order ID:</th>
-                                        <td>{{ $order ? $order->data->id : 'Na' }}</td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">Customer Name:</th>
-                                        <td>{{ $order ? $order->data->name : 'Na' }}</td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">Branch:</th>
-                                        <td>{{ $order ? $order->branch->name : 'Na' }}</td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="table-responsive">
+                                    <table class="table table-sm table-bordered mb-0">
+                                        <tbody>
+                                            <tr>
+                                                <th scope="row">Order ID:</th>
+                                                <td>{{ $order ? $order->data->id : 'Na' }}</td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row">Customer Name:</th>
+                                                <td>{{ $order ? $order->data->name : 'Na' }}</td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row">Branch:</th>
+                                                <td>{{ $order ? $order->branch->name : 'Na' }}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="col-md-8">
+                                <table class="table table-sm table-bordered mb-0">
+                                    <thead>
+                                        <tr>
+                                            <th>SL No</th>
+                                            <th>Product</th>
+                                            <th>Qty</th>
+                                            <th>SPH</th>
+                                            <th>CYL</th>
+                                            <th>AXIS</th>
+                                            <th>ADD</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @forelse($order->odetail as $key => $item)
+                                        @if(in_array($item->eye, ['re', 'le']))
+                                        <tr>
+                                            <td>{{ $key + 1 }}</td>
+                                            <td>{{ $item->name }}</td>
+                                            <td>{{ $item->qty }}</td>
+                                            <td>{{ $item->sph }}</td>
+                                            <td>{{ $item->cyl }}</td>
+                                            <td>{{ $item->axis }}</td>
+                                            <td>{{ $item->add }}</td>
+                                        </tr>
+                                        @endif
+                                        @empty
+                                        @endforelse
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
                     <div class="card-header py-3 border-bottom-0">
