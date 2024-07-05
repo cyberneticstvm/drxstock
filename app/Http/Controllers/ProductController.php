@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Exports\ProductExport;
+use App\Exports\ProductLimitExport;
 use App\Imports\ProductImport;
 use App\Models\Category;
 use App\Models\Coating;
@@ -31,7 +32,7 @@ class ProductController extends Controller implements HasMiddleware
             new Middleware(\Spatie\Permission\Middleware\PermissionMiddleware::using('product-edit'), only: ['edit', 'update']),
             new Middleware(\Spatie\Permission\Middleware\PermissionMiddleware::using('product-delete'), only: ['destroy']),
             new Middleware(\Spatie\Permission\Middleware\PermissionMiddleware::using('product-track'), only: ['track', 'trackFetch']),
-            new Middleware(\Spatie\Permission\Middleware\PermissionMiddleware::using('product-export-excel'), only: ['exportProductExcel']),
+            new Middleware(\Spatie\Permission\Middleware\PermissionMiddleware::using('product-export-excel'), only: ['exportProductExcel', 'exportProduct', 'exportProductFetch', 'exportLimitProductExcel']),
         ];
     }
 
@@ -229,5 +230,60 @@ class ProductController extends Controller implements HasMiddleware
     public function exportProductPdf()
     {
         return Excel::download(new ProductExport(), 'products.pdf', \Maatwebsite\Excel\Excel::DOMPDF);
+    }
+
+    public function exportProduct()
+    {
+        $types = Type::all();
+        $coatings = Coating::pluck('name', 'id');
+        $materials = Material::pluck('name', 'id');
+        $products = [];
+        $powers = Power::all();
+        $inputs = array('', '', '', '', '', '', '', '', '', '', '');
+        return view('product.export', compact('types', 'coatings', 'materials', 'powers', 'inputs', 'products'));
+    }
+
+    public function exportProductFetch(Request $request)
+    {
+        $types = Type::all();
+        $coatings = Coating::pluck('name', 'id');
+        $materials = Material::pluck('name', 'id');
+        $powers = Power::all();
+        $inputs = array($request->sph_from, $request->sph_to, $request->cyl_from, $request->cyl_to, $request->axis_from, $request->axis_to, $request->add_from, $request->add_to, $request->type_id, $request->material_id, $request->coating_id);
+        try {
+            $products = Product::withTrashed()->when($request->type_id, function ($q) use ($request) {
+                return $q->where('type_id', $request->type_id);
+            })->when($request->material_id, function ($q) use ($request) {
+                return $q->where('material_id', $request->material_id);
+            })->when($request->coating_id, function ($q) use ($request) {
+                return $q->where('coating_id', $request->coating_id);
+            })->when($request->sph_from && $request->sph_to, function ($q) use ($request) {
+                return $q->whereRaw("CAST(sph AS DECIMAL(4,2)) BETWEEN CAST($request->sph_from AS DECIMAL(4,2)) AND CAST($request->sph_to AS DECIMAL(4,2))");
+            })->when($request->cyl_from && $request->cyl_to, function ($q) use ($request) {
+                return $q->whereRaw("CAST(cyl AS DECIMAL(4,2)) BETWEEN CAST($request->cyl_from AS DECIMAL(4,2)) AND CAST($request->cyl_to AS DECIMAL(4,2))");
+            })->when($request->axis_from && $request->axis_to, function ($q) use ($request) {
+                return $q->whereBetween('axis', [$request->axis_from, $request->axis_to]);
+            })->when($request->add_from && $request->add_to, function ($q) use ($request) {
+                return $q->whereRaw("CAST(`add` AS DECIMAL(4,2)) BETWEEN CAST($request->add_from AS DECIMAL(4,2)) AND CAST($request->add_to AS DECIMAL(4,2))");
+            })->get();
+            if ($products->isNotEmpty()) :
+                return view('product.export', compact('types', 'coatings', 'materials', 'products', 'inputs', 'powers'));
+            else :
+                return back()->with("error", "No products found!")->withInput($request->all());
+            endif;
+        } catch (Exception $e) {
+            return back()->with("error", $e->getMessage())->withInput($request->all());
+        }
+    }
+
+    public function exportLimitProductExcel(Request $request)
+    {
+        $params = unserialize($request->params);
+        return Excel::download(new ProductLimitExport($params), 'products.xlsx');
+    }
+
+    public function exportLimitProductPdf()
+    {
+        //
     }
 }

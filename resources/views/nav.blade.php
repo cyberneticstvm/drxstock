@@ -29,7 +29,7 @@
              </li>
 
              <li class="collapsed">
-                 <a class="m-link {{ in_array(Route::currentRouteName(), ['role.register', 'role.create', 'role.edit']) ? 'active' : '' }}" data-bs-toggle="collapse" data-bs-target="#menu-role" href="#"><i class="fa fa-user"></i> <span>Role</span> <span class="arrow fa fa-angle-right ms-auto text-end"></span></a>
+                 <a class="m-link {{ in_array(Route::currentRouteName(), ['role.register', 'role.create', 'role.edit']) ? 'active' : '' }}" data-bs-toggle="collapse" data-bs-target="#menu-role" href="#"><i class="fa fa-lock"></i> <span>Role</span> <span class="arrow fa fa-angle-right ms-auto text-end"></span></a>
 
                  <!-- Menu: Sub menu ul -->
                  {{
@@ -85,7 +85,7 @@
              </li>
 
              <li class="collapsed">
-                 <a class="m-link {{ in_array(Route::currentRouteName(), ['product.register', 'product.create', 'product.track']) ? 'active' : '' }}" data-bs-toggle="collapse" data-bs-target="#menu-product" href="#"><i class="fa fa-cubes"></i> <span>Product</span> <span class="arrow fa fa-angle-right ms-auto text-end"></span></a>
+                 <a class="m-link {{ in_array(Route::currentRouteName(), ['product.register', 'product.create', 'product.track', 'product.export']) ? 'active' : '' }}" data-bs-toggle="collapse" data-bs-target="#menu-product" href="#"><i class="fa fa-cubes"></i> <span>Product</span> <span class="arrow fa fa-angle-right ms-auto text-end"></span></a>
 
                  <!-- Menu: Sub menu ul -->
                  {{
@@ -93,6 +93,7 @@
                     ->link(route('product.register'), 'Product Register')->addItemClass('ms-link')
                     ->link(route('product.new'), 'create Product')->addItemClass('ms-link')
                     ->link(route('product.create'), 'Import Product')->addItemClass('ms-link')
+                    ->link(route('product.export'), 'Export Product')->addItemClass('ms-link')
                     ->link(route('product.track'), 'Track Product')->addItemClass('ms-link')
                 }}
              </li>

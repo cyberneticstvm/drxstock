@@ -113,6 +113,11 @@ Route::middleware(['web', 'auth'])->group(function () {
 
         Route::get('/product/export/excel', 'exportProductExcel')->name('product.export.excel');
         Route::get('/product/export/pdf', 'exportProductPdf')->name('product.export.pdf');
+
+        Route::get('/product/limit/export', 'exportProduct')->name('product.export');
+        Route::post('/product/limit/export', 'exportProductFetch')->name('product.export.fetch');
+        Route::get('/product/limit/export/excel', 'exportLimitProductExcel')->name('product.limit.export.excel');
+        Route::get('/product/limit/export/pdf', 'exportLimitProductPdf')->name('product.limit.export.pdf');
     });
 
     Route::prefix('/supplier')->controller(SupplierController::class)->group(function () {

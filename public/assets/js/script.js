@@ -94,6 +94,7 @@ $(function () {
                 });                   
                 $('.sph').prepend('<option selected=""></option>').select2({
                     placeholder: 'Select',
+                    allowClear: true,
                     data: xdata
                 });
                 var xdata1 = $.map(res.cyl, function (obj) {
@@ -103,6 +104,7 @@ $(function () {
                 });                      
                 $('.cyl').prepend('<option selected=""></option>').select2({
                     placeholder: 'Select',
+                    allowClear: true,
                     data: xdata1
                 });  
                 console.log(res);
