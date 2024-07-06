@@ -4,6 +4,7 @@ use App\Http\Controllers\AjaxController;
 use App\Http\Controllers\ApiController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CoatingController;
+use App\Http\Controllers\DamageController;
 use App\Http\Controllers\HelperController;
 use App\Http\Controllers\MaterialController;
 use App\Http\Controllers\ProductController;
@@ -118,6 +119,15 @@ Route::middleware(['web', 'auth'])->group(function () {
         Route::post('/product/limit/export', 'exportProductFetch')->name('product.export.fetch');
         Route::get('/product/limit/export/excel', 'exportLimitProductExcel')->name('product.limit.export.excel');
         Route::get('/product/limit/export/pdf', 'exportLimitProductPdf')->name('product.limit.export.pdf');
+    });
+
+    Route::prefix('/damage')->controller(DamageController::class)->group(function () {
+        Route::get('/', 'index')->name('damage.register');
+        Route::get('/create', 'create')->name('damage.create');
+        Route::post('/save', 'store')->name('damage.save');
+        Route::get('/edit/{id}', 'edit')->name('damage.edit');
+        Route::post('/update/{id}', 'update')->name('damage.update');
+        Route::get('/delete/{id}', 'destroy')->name('damage.delete');
     });
 
     Route::prefix('/supplier')->controller(SupplierController::class)->group(function () {

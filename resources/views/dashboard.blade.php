@@ -29,7 +29,7 @@
             <div class="col-xl-3 col-6">
                 <div class="card">
                     <div class="card-body text-center">
-                        <a href="{{ route('dashboard') }}"><i class="fa fa-search fa-2x text-success"></i></a>
+                        <a href="{{ route('product.track') }}"><i class="fa fa-search fa-2x text-success"></i></a>
                         <h5 class="mt-0 mb-3"><a href="{{ route('product.track') }}" class="text-muted">TRACK PRODUCT</a></h5>
                     </div>
                 </div>

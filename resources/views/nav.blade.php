@@ -22,8 +22,8 @@
                  <!-- Menu: Sub menu ul -->
                  {{
                     Menu::new()->addClass('sub-menu collapse')->setAttribute('id', 'menu-user')
-                    ->link(route('user.register'), 'User Register')->addItemClass('ms-link')
-                    ->link(route('user.create'), 'Create User')->addItemClass('ms-link')
+                    ->linkIfCan('user-list', route('user.register'), 'User Register')->addItemClass('ms-link')
+                    ->linkIfCan('user-create', route('user.create'), 'Create User')->addItemClass('ms-link')
                 }}
 
              </li>
@@ -34,8 +34,8 @@
                  <!-- Menu: Sub menu ul -->
                  {{
                     Menu::new()->addClass('sub-menu collapse')->setAttribute('id', 'menu-role')
-                    ->link(route('role.register'), 'Role Register')->addItemClass('ms-link')
-                    ->link(route('role.create'), 'Create Role')->addItemClass('ms-link')
+                    ->linkIfCan('role-list', route('role.register'), 'Role Register')->addItemClass('ms-link')
+                    ->linkIfCan('rol-create', route('role.create'), 'Create Role')->addItemClass('ms-link')
                 }}
 
              </li>
@@ -46,8 +46,8 @@
                  <!-- Menu: Sub menu ul -->
                  {{
                     Menu::new()->addClass('sub-menu collapse')->setAttribute('id', 'menu-category')
-                    ->link(route('category.register'), 'Category Register')->addItemClass('ms-link')
-                    ->link(route('category.create'), 'Create Category')->addItemClass('ms-link')
+                    ->linkIfCan('category-list', route('category.register'), 'Category Register')->addItemClass('ms-link')
+                    ->linkIfCan('category-create', route('category.create'), 'Create Category')->addItemClass('ms-link')
                 }}
              </li>
 
@@ -57,8 +57,8 @@
                  <!-- Menu: Sub menu ul -->
                  {{
                     Menu::new()->addClass('sub-menu collapse')->setAttribute('id', 'menu-type')
-                    ->link(route('type.register'), 'Type Register')->addItemClass('ms-link')
-                    ->link(route('type.create'), 'Create Type')->addItemClass('ms-link')
+                    ->linkIfCan('product-type-list', route('type.register'), 'Type Register')->addItemClass('ms-link')
+                    ->linkIfCan('product-type-create', route('type.create'), 'Create Type')->addItemClass('ms-link')
                 }}
              </li>
 
@@ -68,8 +68,8 @@
                  <!-- Menu: Sub menu ul -->
                  {{
                     Menu::new()->addClass('sub-menu collapse')->setAttribute('id', 'menu-material')
-                    ->link(route('material.register'), 'Material Register')->addItemClass('ms-link')
-                    ->link(route('material.create'), 'Create Material')->addItemClass('ms-link')
+                    ->linkIfCan('material-list', route('material.register'), 'Material Register')->addItemClass('ms-link')
+                    ->linkIfCan('material-create', route('material.create'), 'Create Material')->addItemClass('ms-link')
                 }}
              </li>
 
@@ -79,8 +79,8 @@
                  <!-- Menu: Sub menu ul -->
                  {{
                     Menu::new()->addClass('sub-menu collapse')->setAttribute('id', 'menu-coating')
-                    ->link(route('coating.register'), 'Coating Register')->addItemClass('ms-link')
-                    ->link(route('coating.create'), 'Create Coating')->addItemClass('ms-link')
+                    ->linkIfCan('coating-list', route('coating.register'), 'Coating Register')->addItemClass('ms-link')
+                    ->linkIfCan('coating-create', route('coating.create'), 'Create Coating')->addItemClass('ms-link')
                 }}
              </li>
 
@@ -90,11 +90,11 @@
                  <!-- Menu: Sub menu ul -->
                  {{
                     Menu::new()->addClass('sub-menu collapse')->setAttribute('id', 'menu-product')
-                    ->link(route('product.register'), 'Product Register')->addItemClass('ms-link')
-                    ->link(route('product.new'), 'create Product')->addItemClass('ms-link')
-                    ->link(route('product.create'), 'Import Product')->addItemClass('ms-link')
-                    ->link(route('product.export'), 'Export Product')->addItemClass('ms-link')
-                    ->link(route('product.track'), 'Track Product')->addItemClass('ms-link')
+                    ->linkIfCan('product-list', route('product.register'), 'Product Register')->addItemClass('ms-link')
+                    ->linkIfCan('product-create', route('product.new'), 'create Product')->addItemClass('ms-link')
+                    ->linkIfCan('product-create', route('product.create'), 'Import Product')->addItemClass('ms-link')
+                    ->linkIfCan('product-export-excel', route('product.export'), 'Export Product')->addItemClass('ms-link')
+                    ->linkIfCan('product-track', route('product.track'), 'Track Product')->addItemClass('ms-link')
                 }}
              </li>
 
@@ -104,8 +104,8 @@
                  <!-- Menu: Sub menu ul -->
                  {{
                     Menu::new()->addClass('sub-menu collapse')->setAttribute('id', 'menu-supplier')
-                    ->link(route('supplier.register'), 'Supplier Register')->addItemClass('ms-link')
-                    ->link(route('supplier.create'), 'Create Supplier')->addItemClass('ms-link')
+                    ->linkIfCan('supplier-list', route('supplier.register'), 'Supplier Register')->addItemClass('ms-link')
+                    ->linkIfCan('supplier-create', route('supplier.create'), 'Create Supplier')->addItemClass('ms-link')
                 }}
              </li>
 
@@ -115,19 +115,30 @@
                  <!-- Menu: Sub menu ul -->
                  {{
                     Menu::new()->addClass('sub-menu collapse')->setAttribute('id', 'menu-purchase')
-                    ->link(route('purchase.register'), 'Purchase Register')->addItemClass('ms-link')
-                    ->link(route('purchase.create'), 'Create Purchase')->addItemClass('ms-link')
-                    ->link(route('purchase.import'), 'Import Purchase')->addItemClass('ms-link')
+                    ->linkIfCan('purchase-list', route('purchase.register'), 'Purchase Register')->addItemClass('ms-link')
+                    ->linkIfCan('purchase-create', route('purchase.create'), 'Create Purchase')->addItemClass('ms-link')
+                    ->linkIfCan('purchase-import', route('purchase.import'), 'Import Purchase')->addItemClass('ms-link')
                 }}
              </li>
 
              <li class="collapsed">
-                 <a class="m-link {{ in_array(Route::currentRouteName(), ['sales.register', 'sales.create']) ? 'active' : '' }}" data-bs-toggle="collapse" data-bs-target="#menu-sales" href="#"><i class="fa fa-usd"></i> <span>Sales</span> <span class="arrow fa fa-angle-right ms-auto text-end"></span></a>
+                 <a class="m-link {{ in_array(Route::currentRouteName(), ['sales.register', 'sales.create']) ? 'active' : '' }}" data-bs-toggle="collapse" data-bs-target="#menu-sales" href="#"><i class="fa fa-usd"></i> <span>Sales / Transfer</span> <span class="arrow fa fa-angle-right ms-auto text-end"></span></a>
 
                  <!-- Menu: Sub menu ul -->
                  {{
                     Menu::new()->addClass('sub-menu collapse')->setAttribute('id', 'menu-sales')
-                    ->link(route('sales.register'), 'Sales Register')->addItemClass('ms-link')
+                    ->linkIfCan('sales-list', route('sales.register'), 'Sales Register')->addItemClass('ms-link')
+                }}
+             </li>
+
+             <li class="collapsed">
+                 <a class="m-link {{ in_array(Route::currentRouteName(), ['damage.register', 'damage.create', 'damage.edit']) ? 'active' : '' }}" data-bs-toggle="collapse" data-bs-target="#menu-sales" href="#"><i class="fa fa-bolt"></i> <span>Damage</span> <span class="arrow fa fa-angle-right ms-auto text-end"></span></a>
+
+                 <!-- Menu: Sub menu ul -->
+                 {{
+                    Menu::new()->addClass('sub-menu collapse')->setAttribute('id', 'menu-sales')
+                    ->linkIfCan('damage-list', route('damage.register'), 'Damage Register')->addItemClass('ms-link')
+                    ->linkIfCan('damage-create', route('damage.create'), 'Create Damage')->addItemClass('ms-link');
                 }}
              </li>
 

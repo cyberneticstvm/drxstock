@@ -135,7 +135,7 @@
                                     <th>Coating</th>
                                     <th>Material</th>
                                     <th>[Eye &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp; Sph &nbsp;&nbsp;&nbsp;| Cyl | Axis | Add]</th>
-                                    <th class="text-center">Qty</th>
+                                    <th class="text-center">Avl. Qty</th>
                                     <th>Shelf</th>
                                     <th>Box</th>
                                     <th>Status</th>
