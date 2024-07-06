@@ -19,7 +19,7 @@
                 </tr>
             </thead>
             <tbody>
-                @forelse($purchase->details as $key => $item)
+                @forelse($sales->details as $key => $item)
                 <tr>
                     <td>{{ $key + 1 }}</td>
                     <td>{{ $sales->order_id }}</td>
