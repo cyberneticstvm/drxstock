@@ -9,6 +9,7 @@ use App\Http\Controllers\HelperController;
 use App\Http\Controllers\MaterialController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\PurchaseController;
+use App\Http\Controllers\ReportController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\SalesController;
 use App\Http\Controllers\SupplierController;
@@ -23,6 +24,17 @@ Route::prefix('/')->controller(HelperController::class)->group(function () {
 });
 
 Route::middleware(['web', 'auth'])->group(function () {
+
+    Route::prefix('/report')->controller(ReportController::class)->group(function () {
+        Route::get('/sales', 'sales')->name('report.sales');
+        Route::post('/sales', 'salesFetch')->name('report.sales.fetch');
+
+        Route::get('/purchase', 'purchase')->name('report.purchase');
+        Route::post('/purchase', 'purchaseFetch')->name('report.purchase.fetch');
+
+        Route::get('/damage', 'damage')->name('report.damage');
+        Route::post('/damage', 'damageFetch')->name('report.damage.fetch');
+    });
 
     Route::prefix('/ajax')->controller(AjaxController::class)->group(function () {
         Route::get('/product/{product}/{editQty}', 'getStock')->name('ajax.get.stock');

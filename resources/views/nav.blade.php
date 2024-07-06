@@ -142,6 +142,18 @@
                 }}
              </li>
 
+             <li class="collapsed">
+                 <a class="m-link {{ in_array(Route::currentRouteName(), ['report.sales', 'report.sales.fetch', 'report.purchase', 'report.purchase.fetch', 'report.damage', 'report.damage.fetch']) ? 'active' : '' }}" data-bs-toggle="collapse" data-bs-target="#menu-sales" href="#"><i class="fa fa-file-text-o"></i> <span>Reports</span> <span class="arrow fa fa-angle-right ms-auto text-end"></span></a>
+
+                 <!-- Menu: Sub menu ul -->
+                 {{
+                    Menu::new()->addClass('sub-menu collapse')->setAttribute('id', 'menu-sales')
+                    ->linkIfCan('report-sales', route('report.sales'), 'Sales / Transfer')->addItemClass('ms-link')
+                    ->linkIfCan('report-purchase', route('report.purchase'), 'Purchase')->addItemClass('ms-link')
+                    ->linkIfCan('report-damage', route('report.damage'), 'Damage')->addItemClass('ms-link');
+                }}
+             </li>
+
          </ul>
          <!-- Menu: menu collepce btn -->
          <button type="button" class="btn btn-link text-primary sidebar-mini-btn">
