@@ -9,7 +9,7 @@
                 <div class="d-flex justify-content-between align-items-center py-2">
                     <ol class="breadcrumb rounded-0 mb-0 ps-0 bg-transparent flex-grow-1">
                         <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Home</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Export Shelf, and Box</li>
+                        <li class="breadcrumb-item active" aria-current="page">Shelf, and Box Bulk Update</li>
                     </ol>
                     <div class="d-flex flex-wrap align-items-center">
                         <button class="btn btn-dark ms-1" type="button"><i class="fa fa-refresh"></i></button>
@@ -28,7 +28,7 @@
             <div class="col-lg-12">
                 <div class="card bg-white">
                     <div class="card-header py-3 border-bottom-0">
-                        <h6 class="card-title mb-0">Export Shelf, and Box</h6>
+                        <h6 class="card-title mb-0">Shelf, and Box Bulk Update</h6>
                     </div>
                     <div class="card-body">
                         {{ html()->form('POST', route('product.export.excel.shelf.box.update'))->acceptsFiles()->open() }}
