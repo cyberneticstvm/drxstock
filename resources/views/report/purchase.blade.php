@@ -86,7 +86,7 @@
                                     <td>{{ $key + 1 }}</td>
                                     <td>{{ $item->supplier->name }}</td>
                                     <td>{{ $item->supplier_invoice }}</td>
-                                    <td>{{ $item->created_at->format('d.m.Y') }}</td>
+                                    <td>{{ $item->created_at->format('d.M.Y') }}</td>
                                     <td>{{ $item->purchase_note }}</td>
                                     <td class="text-center"><a href="#"><i class="fa fa-pdf-o text-warning"></i></a></td>
                                 </tr>
