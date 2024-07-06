@@ -17,7 +17,7 @@ class ReportController extends Controller implements HasMiddleware
 
     public function __construct()
     {
-        $this->branches = Sales::select('name')->unique('name')->toArray();
+        $this->branches = Sales::select('name')->get()->unique('name')->toArray();
     }
     public static function middleware(): array
     {
