@@ -77,7 +77,7 @@
                                     <th>Invoice</th>
                                     <th>Date</th>
                                     <th>Notes</th>
-                                    <th>Details</th>
+                                    <th class="text-center">Print</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -88,7 +88,7 @@
                                     <td>{{ $item->supplier_invoice }}</td>
                                     <td>{{ $item->created_at->format('d.M.Y') }}</td>
                                     <td>{{ $item->purchase_note }}</td>
-                                    <td class="text-center"><a href="#"><i class="fa fa-pdf-o text-warning"></i></a></td>
+                                    <td class="text-center"><a href="{{ route('report.purchase.detail.pdf', encrypt($item->id)) }}" target="_blank"><i class="fa fa-file-pdf-o text-danger"></i></a></td>
                                 </tr>
                                 @empty
                                 @endforelse

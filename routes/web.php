@@ -7,6 +7,7 @@ use App\Http\Controllers\CoatingController;
 use App\Http\Controllers\DamageController;
 use App\Http\Controllers\HelperController;
 use App\Http\Controllers\MaterialController;
+use App\Http\Controllers\PdfController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\PurchaseController;
 use App\Http\Controllers\ReportController;
@@ -34,6 +35,10 @@ Route::middleware(['web', 'auth'])->group(function () {
 
         Route::get('/damage', 'damage')->name('report.damage');
         Route::post('/damage', 'damageFetch')->name('report.damage.fetch');
+    });
+
+    Route::prefix('/pdf')->controller(PdfController::class)->group(function () {
+        Route::get('/purchase/detail/{id}', 'purchaseDetail')->name('report.purchase.detail.pdf');
     });
 
     Route::prefix('/ajax')->controller(AjaxController::class)->group(function () {
