@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Damage;
 use App\Models\Purchase;
+use App\Models\Sales;
 use App\Models\Supplier;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -12,6 +13,12 @@ use Illuminate\Routing\Controllers\Middleware;
 
 class ReportController extends Controller implements HasMiddleware
 {
+    protected $branches;
+
+    public function __construct()
+    {
+        $this->branches = Sales::select('branch')->get()->unique();
+    }
     public static function middleware(): array
     {
         return [
@@ -23,7 +30,10 @@ class ReportController extends Controller implements HasMiddleware
 
     public function sales()
     {
-        //
+        $inputs = array(date('Y-m-d'), date('Y-m-d'), '');
+        $data = collect();
+        $branches = $this->branches;
+        return view('report.sales', compact('data', 'inputs', 'branches'));
     }
 
     public function salesFetch(Request $request)

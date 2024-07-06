@@ -37,8 +37,8 @@
                 <tr>
                     <td colspan="3" class="text-end fw-bold">Total</td>
                     <td class="text-end fw-bold">{{ $purchase->details->sum('qty') }}</td>
-                    <td class="text-end">{{ number_format($purchase->details->sum('unit_purchase_price'), 2) }}</td>
-                    <td class="text-end">{{ number_format($purchase->details->sum('total_purchase_price'), 2) }}</td>
+                    <td class="text-end fw-bold">{{ number_format($purchase->details->sum('unit_purchase_price'), 2) }}</td>
+                    <td class="text-end fw-bold">{{ number_format($purchase->details->sum('total_purchase_price'), 2) }}</td>
                 </tr>
             </tfoot>
         </table>
