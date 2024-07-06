@@ -9,7 +9,7 @@
                 <div class="d-flex justify-content-between align-items-center py-2">
                     <ol class="breadcrumb rounded-0 mb-0 ps-0 bg-transparent flex-grow-1">
                         <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Home</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Export Product</li>
+                        <li class="breadcrumb-item active" aria-current="page">Export Shelf, and Box</li>
                     </ol>
                     <div class="d-flex flex-wrap align-items-center">
                         <button class="btn btn-dark ms-1" type="button"><i class="fa fa-refresh"></i></button>
@@ -28,10 +28,10 @@
             <div class="col-lg-12">
                 <div class="card bg-white">
                     <div class="card-header py-3 border-bottom-0">
-                        <h6 class="card-title mb-0">Export New Product(s)</h6>
+                        <h6 class="card-title mb-0">Export Shelf, and Box</h6>
                     </div>
                     <div class="card-body">
-                        {{ html()->form('POST', route('product.save'))->acceptsFiles()->open() }}
+                        {{ html()->form('POST', route('product.export.excel.shelf.box.update'))->acceptsFiles()->open() }}
                         <div class="row g-3">
                             <div class="col-md-6">
                                 <label for="SquareInput" class="form-label req">Upload File</label>
@@ -42,7 +42,7 @@
                                 @error('data_file')
                                 <small class="text-danger">{{ $errors->first('data_file') }}</small>
                                 @enderror
-                                <div class="mt-3"><small><a href="{{ asset('/assets/docs/products_template.xlsx') }}">Click here to download the format</a></small></div>
+                                <div class="mt-3"><small><a href="{{ asset('/assets/docs/products_shelf_box_template.xlsx') }}">Click here to download the format</a></small></div>
                             </div>
                         </div>
                         {{ html()->form()->close() }}

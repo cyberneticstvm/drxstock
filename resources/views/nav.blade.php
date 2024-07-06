@@ -95,6 +95,7 @@
                     ->linkIfCan('product-create', route('product.create'), 'Import Product')->addItemClass('ms-link')
                     ->linkIfCan('product-export-excel', route('product.export'), 'Export Product')->addItemClass('ms-link')
                     ->linkIfCan('product-track', route('product.track'), 'Track Product')->addItemClass('ms-link')
+                    ->linkIfCan('product-create', route('product.export.excel.shelf.box'), 'Shelf, and Box Bulk Update')->addItemClass('ms-link')
                 }}
              </li>
 

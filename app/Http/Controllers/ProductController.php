@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Exports\ProductExport;
 use App\Exports\ProductLimitExport;
 use App\Imports\ProductImport;
+use App\Imports\ProductShelfBoxImport;
 use App\Models\Category;
 use App\Models\Coating;
 use App\Models\Material;
@@ -285,5 +286,28 @@ class ProductController extends Controller implements HasMiddleware
     public function exportLimitProductPdf()
     {
         //
+    }
+
+    public function exportProductShelfBox()
+    {
+        return view('product.shelf-box');
+    }
+
+    public function exportProductShelfBoxUpdate(Request $request)
+    {
+        $request->validate([
+            'data_file' => 'required|mimes:xlsx',
+        ]);
+        try {
+            $import = new ProductShelfBoxImport($request);
+            Excel::import($import, $request->file('data_file')->store('temp'));
+            if ($import->data) :
+                Session::put('failed_import_data', $import->data);
+                return redirect()->route('import.failed')->with("warning", "Some products weren't updated. Please check the excel file for more info.");
+            endif;
+        } catch (Exception $e) {
+            return back()->with("error", $e->getMessage());
+        }
+        return back()->with("success", "Products Updated Successfully");
     }
 }

@@ -135,8 +135,12 @@ Route::middleware(['web', 'auth'])->group(function () {
 
         Route::get('/product/limit/export', 'exportProduct')->name('product.export');
         Route::post('/product/limit/export', 'exportProductFetch')->name('product.export.fetch');
+
         Route::get('/product/limit/export/excel', 'exportLimitProductExcel')->name('product.limit.export.excel');
         Route::get('/product/limit/export/pdf', 'exportLimitProductPdf')->name('product.limit.export.pdf');
+
+        Route::get('/product/export/shelf/box', 'exportProductShelfBox')->name('product.export.excel.shelf.box');
+        Route::post('/product/export/shelf/box', 'exportProductShelfBoxUpdate')->name('product.export.excel.shelf.box.update');
     });
 
     Route::prefix('/damage')->controller(DamageController::class)->group(function () {
