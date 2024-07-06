@@ -39,6 +39,7 @@ Route::middleware(['web', 'auth'])->group(function () {
 
     Route::prefix('/pdf')->controller(PdfController::class)->group(function () {
         Route::get('/purchase/detail/{id}', 'purchaseDetail')->name('report.purchase.detail.pdf');
+        Route::get('/sales/detail/{id}', 'salesDetail')->name('report.sales.detail.pdf');
     });
 
     Route::prefix('/ajax')->controller(AjaxController::class)->group(function () {

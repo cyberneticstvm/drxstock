@@ -38,7 +38,16 @@ class ReportController extends Controller implements HasMiddleware
 
     public function salesFetch(Request $request)
     {
-        //
+        $request->validate([
+            'from_date' => 'required',
+            'to_date' => 'required',
+        ]);
+        $inputs = array($request->from_date, $request->to_date, $request->branch);
+        $branches = $this->branches;
+        $data = Sales::whereBetween('created_at', [Carbon::parse($request->from_date)->startOfDay(), Carbon::parse($request->to_date)->endOfDay()])->when($request->branch, function ($q) use ($request) {
+            return $q->where('branch', $request->branch);
+        })->get();
+        return view('report.sales', compact('data', 'inputs', 'branches'));
     }
 
     public function purchase()

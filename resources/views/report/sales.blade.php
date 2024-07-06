@@ -69,7 +69,33 @@
                         <h6 class="card-title mb-0">Sales Report</h6>
                     </div>
                     <div class="card-body table-responsive">
-
+                        <table class="myDataTable table table-hover align-middle mb-0" style="width: 100%;">
+                            <thead>
+                                <tr>
+                                    <th>SL No</th>
+                                    <th>Branch</th>
+                                    <th>Order ID</th>
+                                    <th>Customer Name</th>
+                                    <th>Notes</th>
+                                    <th>Date</th>
+                                    <th class="text-center">Print</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @forelse($data as $key => $item)
+                                <tr>
+                                    <td>{{ $key + 1 }}</td>
+                                    <td>{{ $item->branch }}</td>
+                                    <td>{{ $item->order_id }}</td>
+                                    <td>{{ $item->customer_name }}</td>
+                                    <td>{{ $item->notes }}</td>
+                                    <td>{{ $item->created_at->format('d.M.Y') }}</td>
+                                    <td class="text-center"><a href="{{ route('report.sales.detail.pdf', encrypt($item->id)) }}" target="_blank"><i class="fa fa-file-pdf-o text-danger"></i></a></td>
+                                </tr>
+                                @empty
+                                @endforelse
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
