@@ -22,16 +22,16 @@ class ProductShelfBoxImport implements ToModel, WithStartRow
 
     public function model(array $row)
     {
-        $product = Product::where('code', strval($row[0]));
+        $product = Product::where('code', strval($row[1]));
         if (!$product->exists()) :
             $this->data[] = [
                 'product_code' => $row[0],
             ];
         else :
-            $product = Product::where('code', strval($row[0]))->first();
+            $product = Product::where('code', strval($row[1]))->first();
             $product->update([
-                'shelf' => $row[1],
-                'box' => $row[2],
+                'shelf' => $row[10],
+                'box' => $row[11],
             ]);
             return $product;
         endif;
