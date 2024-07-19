@@ -40,7 +40,7 @@
                                 <small class="text-danger">{{ $errors->first('from_date') }}</small>
                                 @enderror
                             </div>
-                            <div class="col-md-2">
+                            <div class="col-md-3">
                                 <label for="SquareInput" class="form-label req">To Date</label>
                                 <div class="input-group">
                                     {{ html()->date('to_date', old('to_date') ?? $inputs[1])->class("form-control form-control-lg")->placeholder(date('Y-m-d')) }}
