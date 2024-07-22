@@ -78,11 +78,9 @@
                                 <tr>
                                     <th>SL No</th>
                                     <th>Branch</th>
-                                    <th>Order ID</th>
+                                    <th>PID</th>
                                     <th>Product</th>
-                                    <th>Customer Name</th>
-                                    <th>Notes</th>
-                                    <th>Date</th>
+                                    <th>Qty</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -90,11 +88,9 @@
                                 <tr>
                                     <td>{{ $key + 1 }}</td>
                                     <td>{{ $item->branch }}</td>
-                                    <td>{{ $item->order_id }}</td>
-                                    <td>{{ $item->product->name }}</td>
-                                    <td>{{ $item->customer_name }}</td>
-                                    <td>{{ $item->notes }}</td>
-                                    <td>{{ $item->created_at->format('d.M.Y') }}</td>
+                                    <td>{{ $item->product_id }}</td>
+                                    <td>{{ $item->pname($item->product_id)->name }}</td>
+                                    <td><a href="{{ route('report.sales.product.detail', ['branch' => $inputs[2], 'product' => $item->product_id, 'fdate' => $inputs[0], 'tdate' => $inputs[1]]) }}" target="_blank">{{ $item->qty }}</a></td>
                                 </tr>
                                 @empty
                                 @endforelse

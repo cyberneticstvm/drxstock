@@ -72,12 +72,26 @@ class ReportController extends Controller implements HasMiddleware
         $inputs = array($request->from_date, $request->to_date, $request->branch, $request->product);
         $branches = $this->branches;
         $products = $this->products;
-        $data = SalesDetail::leftJoin('sales as s', 's.id', 'sales_details.sales_id')->selectRaw("sales_details.id, sales_details.product_id, s.order_id, s.customer_name, s.branch, s.notes, sales_details.created_at")->whereBetween('sales_details.created_at', [Carbon::parse($request->from_date)->startOfDay(), Carbon::parse($request->to_date)->endOfDay()])->when($request->branch, function ($q) use ($request) {
+        /*$data = SalesDetail::leftJoin('sales as s', 's.id', 'sales_details.sales_id')->selectRaw("sales_details.id, sales_details.product_id, s.order_id, s.customer_name, s.branch, s.notes, sales_details.created_at")->whereBetween('sales_details.created_at', [Carbon::parse($request->from_date)->startOfDay(), Carbon::parse($request->to_date)->endOfDay()])->when($request->branch, function ($q) use ($request) {
+            return $q->where('s.branch', $request->branch);
+        })->when($request->product, function ($q) use ($request) {
+            return $q->where('sales_details.product_id', $request->product);
+        })->get();*/
+        $data = SalesDetail::leftJoin('sales as s', 's.id', 'sales_details.sales_id')->selectRaw("SUM(sales_details.qty) AS qty, sales_details.product_id, s.branch")->whereBetween('sales_details.created_at', [Carbon::parse($request->from_date)->startOfDay(), Carbon::parse($request->to_date)->endOfDay()])->when($request->branch, function ($q) use ($request) {
+            return $q->where('s.branch', $request->branch);
+        })->when($request->product, function ($q) use ($request) {
+            return $q->where('sales_details.product_id', $request->product);
+        })->groupBy('sales_details.product_id', 's.branch')->get();
+        return view('report.sales-product', compact('data', 'inputs', 'branches', 'products'));
+    }
+
+    public function salesProductDetail(Request $request){
+        $data = SalesDetail::leftJoin('sales as s', 's.id', 'sales_details.sales_id')->selectRaw("sales_details.id, sales_details.product_id, sales_details.qty, s.order_id, s.customer_name, s.branch, s.notes, sales_details.created_at")->whereBetween('sales_details.created_at', [Carbon::parse($request->fdate)->startOfDay(), Carbon::parse($request->tdate)->endOfDay()])->when($request->branch, function ($q) use ($request) {
             return $q->where('s.branch', $request->branch);
         })->when($request->product, function ($q) use ($request) {
             return $q->where('sales_details.product_id', $request->product);
         })->get();
-        return view('report.sales-product', compact('data', 'inputs', 'branches', 'products'));
+        return view('report.sales-product-detail', compact('data'));
     }
 
     public function purchase()

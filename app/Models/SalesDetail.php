@@ -21,4 +21,8 @@ class SalesDetail extends Model
     {
         return $this->belongsTo(Product::class, 'product_id', 'id');
     }
+
+    public function pname($pid){
+        return PRoduct::leftJoin('coatings AS c', 'products.coating_id', 'c.id')->where('products.id', $pid)->selectRaw("CONCAT_WS(' ', products.code, products.name, c.name, CONCAT(products.sph, ' ', products.cyl, ' ', products.axis, ' ', products.add)) AS name")->first();
+    }
 }
