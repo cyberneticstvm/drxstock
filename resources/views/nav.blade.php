@@ -29,10 +29,10 @@
              </li>
 
              <li class="collapsed">
-                 <a class="m-link {{ in_array(Route::currentRouteName(), ['role.register', 'role.create', 'role.edit']) ? 'active' : '' }}" data-bs-toggle="collapse" data-bs-target="#menu-role" href="#"><i class="fa fa-lock"></i> <span>Role</span> <span class="arrow fa fa-angle-right ms-auto text-end"></span></a>
+                <a class="m-link {{ in_array(Route::currentRouteName(), ['role.register', 'role.create', 'role.edit']) ? 'active' : '' }}" data-bs-toggle="collapse" data-bs-target="#menu-role" href="#"><i class="fa fa-lock"></i> <span>Role</span> <span class="arrow fa fa-angle-right ms-auto text-end"></span></a>
 
                  <!-- Menu: Sub menu ul -->
-                 {{
+                {{
                     Menu::new()->addClass('sub-menu collapse')->setAttribute('id', 'menu-role')
                     ->linkIfCan('role-list', route('role.register'), 'Role Register')->addItemClass('ms-link')
                     ->linkIfCan('rol-create', route('role.create'), 'Create Role')->addItemClass('ms-link')
@@ -150,6 +150,7 @@
                  {{
                     Menu::new()->addClass('sub-menu collapse')->setAttribute('id', 'menu-sales')
                     ->linkIfCan('report-sales', route('report.sales'), 'Sales / Transfer')->addItemClass('ms-link')
+                    ->linkIfCan('report-sales-product-wise', route('report.sales.product'), 'Sales (Product)')->addItemClass('ms-link')
                     ->linkIfCan('report-purchase', route('report.purchase'), 'Purchase')->addItemClass('ms-link')
                     ->linkIfCan('report-damage', route('report.damage'), 'Damage')->addItemClass('ms-link');
                 }}

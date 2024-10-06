@@ -30,6 +30,10 @@ Route::middleware(['web', 'auth'])->group(function () {
         Route::get('/sales', 'sales')->name('report.sales');
         Route::post('/sales', 'salesFetch')->name('report.sales.fetch');
 
+        Route::get('/sales/product', 'salesProduct')->name('report.sales.product');
+        Route::post('/sales/product', 'salesProductFetch')->name('report.sales.product.fetch');
+        Route::get('/sales/product/detail', 'salesProductDetail')->name('report.sales.product.detail');
+
         Route::get('/purchase', 'purchase')->name('report.purchase');
         Route::post('/purchase', 'purchaseFetch')->name('report.purchase.fetch');
 
