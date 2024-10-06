@@ -10,6 +10,11 @@ function getInventory($product, $editQty)
     return collect($stock);
 }
 
+function api_url()
+{
+    return "https://order.speczone.net";
+}
+
 function apiSecret()
 {
     return 'fdjsvsgdf4dhgf687f4bg54g4hf787';
