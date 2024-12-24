@@ -52,7 +52,7 @@ class SalesController extends Controller implements HasMiddleware
         try {
             $oid = $request->order_id;
             $secret = apiSecret();
-            $url = "https://order.speczone.net/api/order/$oid/$secret";
+            $url = api_url() . "/api/order/$oid/$secret";
             $json = file_get_contents($url);
             $order = json_decode($json);
             $products = $this->products;

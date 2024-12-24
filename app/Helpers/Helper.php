@@ -12,7 +12,7 @@ function getInventory($product, $editQty)
 
 function api_url()
 {
-    return "https://order.speczone.net";
+    return "https://store.devihospitals.in";
 }
 
 function apiSecret()

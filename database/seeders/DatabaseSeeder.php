@@ -20,7 +20,7 @@ class DatabaseSeeder extends Seeder
             'name' => 'Administrator',
             'username' => 'admin',
             'password' => Hash::make("admin"),
-            'email' => 'admin@speczone.net',
+            'email' => 'mail@devihospitals.in',
             'role' => 'admin',
         ]);
     }
